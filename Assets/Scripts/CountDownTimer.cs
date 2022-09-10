@@ -32,6 +32,13 @@ public class CountDownTimer : MonoBehaviour {
         //countdown.text = currentTime.ToString();
         countdown.text = currentTime.ToString("0");
 
+        if (Player)
+        {
+            currentTime = 0;
+            return;
+        }
+
+
         if (currentTime <= 0)
         {
             currentTime = 0;
