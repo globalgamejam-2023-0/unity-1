@@ -20,6 +20,7 @@ public class ClueSystem : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         clues = new();
         SpawnClue(2, 3);
+        
     }
 
     void SpawnClue(float x, float y)
@@ -53,6 +54,15 @@ public class ClueSystem : MonoBehaviour
                 spriteRenderer.enabled = true;
                 return;
             }
+        }
+
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.X) && spriteRenderer.enabled)
+        {
+            Debug.Log("X");
         }
     }
 

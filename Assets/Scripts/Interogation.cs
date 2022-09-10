@@ -11,7 +11,7 @@ public class Interogation : MonoBehaviour
     
     private void Start()
     {
-        OnMouseDown.
+        //OnMouseDown.
     }
 
     private void FixedUpdate()
