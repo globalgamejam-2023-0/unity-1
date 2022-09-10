@@ -23,6 +23,7 @@ public class Clue : MonoBehaviour
         ClueName   = clueName;
         ClueText   = clueText;
         Truthiness = truthiness;
+        clue.transform.position = Vector3.zero;
     }
 
     private void Update()

@@ -14,6 +14,7 @@ public class ClueSystem : MonoBehaviour
     void Start()
     {
         clues = new();
+        clues.Add(new Clue("TestClue", "This clue is a test", true));
     }
 
     private void FixedUpdate()
@@ -24,6 +25,7 @@ public class ClueSystem : MonoBehaviour
                 10.0f)
             {
                 // Do something here
+                Debug.Log($"Player is close to: {clue.ClueName}");
             }
         }
     }
