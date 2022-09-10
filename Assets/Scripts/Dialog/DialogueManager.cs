@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -67,8 +68,8 @@ public class DialogueManager : MonoBehaviour
     public void TriggerDialogue(Clue clue)
     {
         Dialogue d = new Dialogue();
-        d.clue = clue.ClueName;
-        d.cluesForQueue = new[] { clue.ClueText };
+        d.clue = clue.clueData.clueName;
+        d.cluesForQueue = new[] { String.Format(clue.clueData.clueText, clue.clueData.adjective) };
         FindObjectOfType<DialogueManager>().StartDialogue(d);
     }
 

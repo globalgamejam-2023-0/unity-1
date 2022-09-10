@@ -6,24 +6,13 @@ using UnityEngine;
 [Serializable]
 public class Clue : MonoBehaviour
 {
-    public uint cid;
-
     public GameObject go { get; set; }
     
-    public string ClueName;
-  
-    [TextArea(3, 10)]
-    public string ClueText;
+    public ClueData clueData { get; set; }
 
-    public bool Truthiness;
-
-    public Clue() : this("TestClue", "This is a test clue", true) {}
-    
-    public Clue(string clueName, string clueText, bool truthiness)
+    public Clue(ClueData clueData)
     {
-        ClueName   = clueName;
-        ClueText   = clueText;
-        Truthiness = truthiness;
+        this.clueData = clueData;
         //go.transform.position = Vector3.zero;
         Debug.Log("I WAS CREATED!!");
     }

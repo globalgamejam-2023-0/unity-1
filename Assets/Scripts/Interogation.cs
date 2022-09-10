@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,9 +11,29 @@ public class Interogation : MonoBehaviour
     public GameObject q1;
     public GameObject q2;
     public GameObject q3;
+
+    public TextMeshProUGUI adj1;
+    public TextMeshProUGUI adj2;
+    public TextMeshProUGUI adj3;
+    public TextMeshProUGUI question;
+    //private List<ClueData> cluesPlaced;
     
     private void Start()
     {
+        //cluesPlaced = DataSaver.loadData<List<ClueData>>("cluesPlaced");
+        
+        ClueData cd = ClueSystem.cluesPlaced.First();
+        List<string> cds = new();
+        cds.Add(cd.adjective);
+        cds.Add(cd.adjectives.First());
+        cds.RemoveAt(0);
+        cds.Add(cds.First());
+        cds = cds.OrderBy(c => Guid.NewGuid()).ToList();
+
+        adj1.SetText(cds[0]);
+        question.SetText(cd.question);
+        
+
         //OnMouseDown.
     }
 
@@ -25,14 +48,22 @@ public class Interogation : MonoBehaviour
         //}
     }
 
+    private void Update()
+    {
+        ClickCard();
+    }
+
     private void ClickCard()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit2D hit =
-            Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
-        if (hit)
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            Debug.Log(hit.collider.GameObject().name);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit2D hit =
+                Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
+            if (hit)
+            {
+                Debug.Log(hit.collider.GameObject().name);
+            }
         }
     }
 }
