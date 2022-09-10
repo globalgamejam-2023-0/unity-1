@@ -17,6 +17,7 @@ public class DialogueManager : MonoBehaviour
 
     private Queue<string> clues; // first in first out
 
+
     private void Start()
     {
         clues = new Queue<string>();
@@ -27,6 +28,8 @@ public class DialogueManager : MonoBehaviour
     public void StartDialogue (Dialogue dialogue)
     {
         Debug.Log("Starting dialogue");
+
+        
 
         animator.SetBool("IsOpen",true);
 
@@ -54,7 +57,7 @@ public class DialogueManager : MonoBehaviour
 
         string clue = clues.Dequeue();
         dialogueText.text = clue;
-
+        Time.timeScale = 0;
         Debug.Log(clue);
 
     }
@@ -62,7 +65,9 @@ public class DialogueManager : MonoBehaviour
     public void EndDialogue()
     {
         Debug.Log("remove Dialogue");
+        Time.timeScale = 1;
         animator.SetBool("IsOpen",false);
+
     }
     
     public void TriggerDialogue(Clue clue)

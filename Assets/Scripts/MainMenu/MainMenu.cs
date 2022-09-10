@@ -9,8 +9,8 @@ public class MainMenu : MonoBehaviour
     public void playGame()
     {
         Debug.Log("Play Game has been pressed");
-        SceneManager.LoadScene(1); 
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); 
+        //SceneManager.LoadScene(1); 
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); 
         // tekur næsta scenuna um tað skal vera ávís scena mugu vit specifisera tað í SceneManager
         // er í "File" "Build And Run" og Scenes in build skal hála scenurnar inn.
     }
