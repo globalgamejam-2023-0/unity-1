@@ -8,25 +8,56 @@ using UnityEngine;
 public class ClueSystem : MonoBehaviour
 {
     public GameObject player;
-    public List<Clue> clues;
+    //public GameObject camera;
+    public List<GameObject> clues;
+    public Sprite circle;
+    private SpriteRenderer spriteRenderer;
+
     // Phone?
     
     void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
         clues = new();
-        clues.Add(new Clue("TestClue", "This clue is a test", true));
+        SpawnClue(2, 3);
     }
 
+    void SpawnClue(float x, float y)
+    {
+        GameObject clueGo = new GameObject();
+        clueGo.transform.position = Vector3.zero + new Vector3(x, y, 0);
+        
+        Clue clue = clueGo.AddComponent<Clue>();
+        clue.go = clueGo;
+        
+        SpriteRenderer spriteRenderer = clueGo.AddComponent<SpriteRenderer>();
+        spriteRenderer.color = Color.green;
+        spriteRenderer.size = new Vector2(2, 2);
+        spriteRenderer.enabled = true;
+        spriteRenderer.sprite = circle;
+        
+        clues.Add(clueGo);
+    }
+    
     private void FixedUpdate()
     {
-        foreach (var clue in clues)
+        spriteRenderer.enabled = false;
+        foreach (GameObject clue in clues)
         {
-            if ((clue.clue.transform.position - player.transform.position).magnitude <
-                10.0f)
+            if ((clue.transform.position - player.transform.position).magnitude <
+                1.0f)
             {
                 // Do something here
-                Debug.Log($"Player is close to: {clue.ClueName}");
+                //Debug.Log($"Player is close to: ???");
+                //TakeClue = alse;
+                spriteRenderer.enabled = true;
+                return;
             }
         }
+    }
+
+    private void createStory()
+    {
+        //string clue_vehicle = "Pres"
     }
 }

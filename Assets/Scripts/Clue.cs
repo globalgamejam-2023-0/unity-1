@@ -3,13 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class Clue : MonoBehaviour
 {
     public uint cid;
 
-    public GameObject clue;
-    public Sprite sprite;
-    public SpriteRenderer spriteRenderer;
+    public GameObject go { get; set; }
     
     public string ClueName;
   
@@ -18,20 +17,19 @@ public class Clue : MonoBehaviour
 
     public bool Truthiness;
 
-    public GameObject player;
-
+    public Clue() : this("TestClue", "This is a test clue", true) {}
+    
     public Clue(string clueName, string clueText, bool truthiness)
     {
         ClueName   = clueName;
         ClueText   = clueText;
         Truthiness = truthiness;
-        clue.transform.position = Vector3.zero;
-        clue.sp
-        Instantiate(clue);
+        //go.transform.position = Vector3.zero;
+        Debug.Log("I WAS CREATED!!");
     }
 
-    private void Update()
+    public void Init(GameObject go)
     {
-        // Check if player is in range, if so open dialog displaying clue
+        this.go = go;
     }
 }
