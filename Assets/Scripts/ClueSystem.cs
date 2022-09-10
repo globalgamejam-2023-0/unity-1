@@ -10,7 +10,6 @@ public class ClueSystem : MonoBehaviour
     public GameObject player;
     //public GameObject camera;
     public List<GameObject> clues;
-    public Sprite circle;
     private SpriteRenderer spriteRenderer;
     public DialogueManager dialogueManager;
     private GameObject currentClue = null;
@@ -29,17 +28,15 @@ public class ClueSystem : MonoBehaviour
     {
         GameObject clueGo = new GameObject();
         clueGo.transform.position = Vector3.zero + new Vector3(x, y, 1);
+        // clueGo.transform.localScale = new Vector3(0.5f, 0.5f, 1);
         
         Clue clue = clueGo.AddComponent<Clue>();
         clue.go = clueGo;
         
         SpriteRenderer spriteRenderer = clueGo.AddComponent<SpriteRenderer>();
-        spriteRenderer.color = Color.green;
-        spriteRenderer.size = new Vector2(2, 2);
         spriteRenderer.enabled = true;
-        // spriteRenderer.sprite = Resources.Load("WorldObjects/IMG_2562.PNG") as Sprite;
-        spriteRenderer.sprite = circle;
-        
+        spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/IMG_2564");
+
         clues.Add(clueGo);
     }
     
