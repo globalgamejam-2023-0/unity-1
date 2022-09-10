@@ -28,7 +28,7 @@ public class ClueSystem : MonoBehaviour
     {
         GameObject clueGo = new GameObject();
         clueGo.transform.position = Vector3.zero + new Vector3(x, y, 1);
-        // clueGo.transform.localScale = new Vector3(0.5f, 0.5f, 1);
+        clueGo.transform.localScale = new Vector3(0.5f, 0.5f, 1);
         
         Clue clue = clueGo.AddComponent<Clue>();
         clue.go = clueGo;
