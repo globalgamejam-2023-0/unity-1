@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D body;
     private float inputH;
     private float inputV;
+
     
     
     // Start is called before the first frame update
