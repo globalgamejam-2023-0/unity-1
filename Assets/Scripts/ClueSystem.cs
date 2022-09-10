@@ -21,14 +21,14 @@ public class ClueSystem : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         clues = new();
-        SpawnClue(300, 100);
+        SpawnClue(300, 170);
         
     }
 
     void SpawnClue(float x, float y)
     {
         GameObject clueGo = new GameObject();
-        clueGo.transform.position = Vector3.zero + new Vector3(x, y, 0);
+        clueGo.transform.position = Vector3.zero + new Vector3(x, y, 1);
         
         Clue clue = clueGo.AddComponent<Clue>();
         clue.go = clueGo;
@@ -37,6 +37,7 @@ public class ClueSystem : MonoBehaviour
         spriteRenderer.color = Color.green;
         spriteRenderer.size = new Vector2(2, 2);
         spriteRenderer.enabled = true;
+        // spriteRenderer.sprite = Resources.Load("WorldObjects/IMG_2562.PNG") as Sprite;
         spriteRenderer.sprite = circle;
         
         clues.Add(clueGo);
