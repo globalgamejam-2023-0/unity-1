@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CountDownTimer : MonoBehaviour { 
@@ -10,7 +11,7 @@ public class CountDownTimer : MonoBehaviour {
     public GameOverScreen GameOverScreen;
     public GameObject Player;
     float currentTime = 0f;
-    float startingTime = 10f;
+    public float startingTime = 10f;
 
     [SerializeField] TextMeshProUGUI countdown;
 
@@ -32,15 +33,23 @@ public class CountDownTimer : MonoBehaviour {
         //countdown.text = currentTime.ToString();
         countdown.text = currentTime.ToString("0");
 
+        if (Player)
+        {
+            currentTime = 0;
+            return;
+        }
+
+
         if (currentTime <= 0)
         {
             currentTime = 0;
             Player = GameObject.Find("Player");
             Player.SetActive(false);
 
-            GameOver();
-            
-            
+            //GameOver();
+            SceneManager.LoadScene("QuestioningScene_dev");
+
+
         }
     }
 }
