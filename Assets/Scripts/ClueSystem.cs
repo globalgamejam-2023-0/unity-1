@@ -12,6 +12,8 @@ public class ClueSystem : MonoBehaviour
     public List<GameObject> clues;
     public Sprite circle;
     private SpriteRenderer spriteRenderer;
+    public DialogueManager dialogueManager;
+    private GameObject currentClue = null;
 
     // Phone?
     
@@ -52,6 +54,7 @@ public class ClueSystem : MonoBehaviour
                 //Debug.Log($"Player is close to: ???");
                 //TakeClue = alse;
                 spriteRenderer.enabled = true;
+                currentClue = clue;
                 return;
             }
         }
@@ -60,9 +63,16 @@ public class ClueSystem : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.X) && spriteRenderer.enabled)
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E)) && spriteRenderer.enabled)
         {
             Debug.Log("X");
+            Clue clue = currentClue.GetComponent<Clue>();
+            if (clue != null)
+            {
+                dialogueManager.TriggerDialogue(clue);
+                Destroy(currentClue);
+            }
+
         }
     }
 

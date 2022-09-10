@@ -25,7 +25,7 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue (Dialogue dialogue)
     {
-        //Debug.Log("Starting dialogue");
+        Debug.Log("Starting dialogue");
 
         animator.SetBool("IsOpen",true);
 
@@ -62,6 +62,14 @@ public class DialogueManager : MonoBehaviour
     {
         Debug.Log("remove Dialogue");
         animator.SetBool("IsOpen",false);
+    }
+    
+    public void TriggerDialogue(Clue clue)
+    {
+        Dialogue d = new Dialogue();
+        d.clue = clue.ClueName;
+        d.cluesForQueue = new[] { clue.ClueText };
+        FindObjectOfType<DialogueManager>().StartDialogue(d);
     }
 
 }
