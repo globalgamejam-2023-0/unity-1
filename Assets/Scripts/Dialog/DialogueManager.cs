@@ -11,6 +11,8 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI dialogueText;
 
+    public Animator animator;
+
 
     private Queue<string> clues; // first in first out
 
@@ -24,6 +26,8 @@ public class DialogueManager : MonoBehaviour
     public void StartDialogue (Dialogue dialogue)
     {
         //Debug.Log("Starting dialogue");
+
+        animator.SetBool("IsOpen",true);
 
         nameText.text = dialogue.clue;
 
@@ -57,6 +61,7 @@ public class DialogueManager : MonoBehaviour
     public void EndDialogue()
     {
         Debug.Log("remove Dialogue");
+        animator.SetBool("IsOpen",false);
     }
 
 }

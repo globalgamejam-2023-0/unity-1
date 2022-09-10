@@ -322,6 +322,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameText: {fileID: 2013356892}
   dialogueText: {fileID: 1524233431}
+  animator: {fileID: 1993473075}
 --- !u!4 &145228029
 Transform:
   m_ObjectHideFlags: 0
@@ -429,8 +430,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1993473072}
   - {fileID: 788529371}
+  - {fileID: 1993473072}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -473,7 +474,7 @@ RectTransform:
   m_Children:
   - {fileID: 1484936375}
   m_Father: {fileID: 544400564}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -648,7 +649,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: CLOSE
+  m_text: Close
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1483,6 +1484,7 @@ GameObject:
   - component: {fileID: 1993473072}
   - component: {fileID: 1993473074}
   - component: {fileID: 1993473073}
+  - component: {fileID: 1993473075}
   m_Layer: 5
   m_Name: DialogueBox
   m_TagString: Untagged
@@ -1506,7 +1508,7 @@ RectTransform:
   - {fileID: 1524233430}
   - {fileID: 2019266772}
   m_Father: {fileID: 544400564}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1551,6 +1553,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1993473071}
   m_CullTransparentMesh: 1
+--- !u!95 &1993473075
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993473071}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2d444b2ab93431643887cc06160fb83e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2013356890
 GameObject:
   m_ObjectHideFlags: 0
@@ -1699,7 +1721,7 @@ GameObject:
   - component: {fileID: 2019266774}
   - component: {fileID: 2019266773}
   m_Layer: 5
-  m_Name: OkButton
+  m_Name: CloseButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1769,7 +1791,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2019266774}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 145228028}
+        m_TargetAssemblyTypeName: DialogueManager, Assembly-CSharp
+        m_MethodName: EndDialogue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2019266774
 MonoBehaviour:
   m_ObjectHideFlags: 0
