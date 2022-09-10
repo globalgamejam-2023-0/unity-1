@@ -8,6 +8,8 @@ public class Clue : MonoBehaviour
     public uint cid;
 
     public GameObject clue;
+    public Sprite sprite;
+    public SpriteRenderer spriteRenderer;
     
     public string ClueName;
   
@@ -24,6 +26,8 @@ public class Clue : MonoBehaviour
         ClueText   = clueText;
         Truthiness = truthiness;
         clue.transform.position = Vector3.zero;
+        clue.sp
+        Instantiate(clue);
     }
 
     private void Update()
