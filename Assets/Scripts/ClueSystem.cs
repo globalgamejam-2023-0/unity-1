@@ -1,25 +1,30 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
 public class ClueSystem : MonoBehaviour
 {
-    public List<GameObject> fakeClues;
-    public List<GameObject> trueClues;
-    public List<Clue> foundFakeClues;
-    public List<Clue> foundTrueClues;
-
+    public GameObject player;
     public List<Clue> clues;
     // Phone?
     
-    
-    
     void Start()
     {
-        //fakeClues = new(Resources.LoadAll<GameObject>("FakeClues"));
-        //trueClues = new(Resources.LoadAll<GameObject>("TrueClues"));
-        foundFakeClues = new();
-        foundTrueClues = new();
+        clues = new();
+    }
+
+    private void FixedUpdate()
+    {
+        foreach (var clue in clues)
+        {
+            if ((clue.clue.transform.position - player.transform.position).magnitude <
+                10.0f)
+            {
+                // Do something here
+            }
+        }
     }
 }

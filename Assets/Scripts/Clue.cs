@@ -7,6 +7,8 @@ public class Clue : MonoBehaviour
 {
     public uint cid;
 
+    public GameObject clue;
+    
     public string ClueName;
   
     [TextArea(3, 10)]
