@@ -22,6 +22,9 @@ public class ClueSystem : MonoBehaviour
     private List<string> notz =
         new() { "not", "" };
 
+    private List<string> guns =
+        new() { "Glock", "AWP", "M4A1-S", "Desert Eagle", "UPS", "Bazooka" };
+    
     private List<(int, int)> cluePositions =
         new() { (300, 170), (330, 140) };
 
@@ -36,11 +39,26 @@ public class ClueSystem : MonoBehaviour
         clueDatas = createStory();
         spriteRenderer = GetComponent<SpriteRenderer>();
         clues = new();
+        GameObject[] spawnPoints =
+            GameObject.FindGameObjectsWithTag("clue_spawn_point");
+
+        List<GameObject> spawnPoints2 = new();
+
+        //foreach (var sp in spawnPoints)
+        //{
+        //    spawnPoints2.Add(sp);
+        //}
+
+        spawnPoints2 = spawnPoints.OrderBy(sp => Guid.NewGuid()).ToList();
+        
+        //int i = 0;
         foreach (ClueData cd in clueDatas)
         {
-            (int, int) pos = cluePositions.First();
-            cluePositions.RemoveAt(0);
-            SpawnClue(pos.Item1, pos.Item2, cd);
+            //(int, int) pos = cluePositions.First();
+            //cluePositions.RemoveAt(0);
+            GameObject go = spawnPoints2.First();
+            spawnPoints2.RemoveAt(0);
+            SpawnClue(go.transform.position.x, go.transform.position.y, cd);
             cluesPlaced.Add(cd);
         }
         //SpawnClue(300, 170);
@@ -121,13 +139,18 @@ public class ClueSystem : MonoBehaviour
     {
         return notz.OrderBy(i => Guid.NewGuid()).ToList();
     }
+
+    private List<string> randomizedList(List<string> list)
+    {
+        return list.OrderBy(item => Guid.NewGuid()).ToList();
+    }
     
     private List<ClueData> createStory()
     {
         List<ClueData> clueData = new();
 
         ClueData cd0 = new();
-        cd0.adjectives = randomizedColours();
+        cd0.adjectives = randomizedList(colours);
         cd0.adjective = cd0.adjectives.First();
         cd0.adjectives.RemoveAt(0);
         cd0.clueName = "President's car.";
@@ -137,7 +160,7 @@ public class ClueSystem : MonoBehaviour
         clueData.Add(cd0);
 
         ClueData cd1 = new();
-        cd1.adjectives = randomizedNotz();
+        cd1.adjectives = randomizedList(notz);
         cd1.adjective = cd1.adjectives.First();
         cd1.adjectives.RemoveAt(0);
         cd1.clueName = "A corrupt president.";
@@ -145,6 +168,17 @@ public class ClueSystem : MonoBehaviour
         cd1.question = "Is the president guilty?";
         cd1.answers = 2;
         clueData.Add(cd1);
+        
+        ClueData cd2 = new();
+        cd2.adjectives = randomizedList(guns);
+        cd2.adjective = cd2.adjectives.First();
+        cd2.adjectives.RemoveAt(0);
+        cd2.clueName = "A trigger happy president";
+        cd2.clueText = "The president aimed at a person with {0}";
+        cd2.question = "Which gun was the president seen with?";
+        cd2.answers = 2;
+        clueData.Add(cd2);
+        
 
         return clueData.OrderBy(cd => Guid.NewGuid()).ToList();
     }
