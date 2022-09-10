@@ -21,7 +21,7 @@ public class ClueSystem : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         clues = new();
-        SpawnClue(2, 3);
+        SpawnClue(300, 100);
         
     }
 
@@ -47,11 +47,10 @@ public class ClueSystem : MonoBehaviour
         spriteRenderer.enabled = false;
         foreach (GameObject clue in clues)
         {
-            if ((clue.transform.position - player.transform.position).magnitude <
-                1.0f)
+            if ((clue) && ((clue.transform.position - player.transform.position).magnitude < 3.0f))
             {
                 // Do something here
-                //Debug.Log($"Player is close to: ???");
+                //Debug.Log("Player is close to: ???");
                 //TakeClue = alse;
                 spriteRenderer.enabled = true;
                 currentClue = clue;
@@ -73,6 +72,11 @@ public class ClueSystem : MonoBehaviour
                 Destroy(currentClue);
             }
 
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            dialogueManager.EndDialogue();
         }
     }
 
