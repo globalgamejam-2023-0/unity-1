@@ -12,8 +12,8 @@ EditorBuildSettings:
     path: Assets/Scenes/OfficeScene.unity
     guid: 91e8da9be75f369489f9fe6ac5f80438
   - enabled: 1
-    path: Assets/Scenes/gameworld.unity
-    guid: 5bf40aaaafb52fb40ac427a2d6d8f0e8
+    path: Assets/Scenes/gw2.unity
+    guid: 49083fb48d615054c92acb764eeecf5f
   - enabled: 1
     path: Assets/Scenes/questions.unity
     guid: 7e898fd2ff9413145971a0bdc9ea2629
