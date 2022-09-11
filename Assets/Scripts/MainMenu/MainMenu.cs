@@ -12,8 +12,8 @@ public class MainMenu : MonoBehaviour
         //SceneManager.LoadScene(1); 
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); 
         SceneManager.LoadScene("OfficeScene");
-        // tekur næsta scenuna um tað skal vera ávís scena mugu vit specifisera tað í SceneManager
-        // er í "File" "Build And Run" og Scenes in build skal hála scenurnar inn.
+        // tekur nï¿½sta scenuna um taï¿½ skal vera ï¿½vï¿½s scena mugu vit specifisera taï¿½ ï¿½ SceneManager
+        // er ï¿½ "File" "Build And Run" og Scenes in build skal hï¿½la scenurnar inn.
     }
 
     public void GoToSettingsMenu()

@@ -26,9 +26,9 @@ public class Interogation : MonoBehaviour
         //{
         //    SceneManager.LoadScene("cancelled");
         //}
-        ClueData cd = ClueSystem.cluesPlaced.First();
-        ClueSystem.cluesPlaced.RemoveAt(0);
-        setupQuestion(cd);
+        // ClueData cd = ClueSystem.cluesPlaced.First();
+        // ClueSystem.cluesPlaced.RemoveAt(0);
+        // setupQuestion(cd);
         //List<ClueData> questions = ClueSystem.cluesPlaced;
         //int i = 0;
         //clickyclick = false;
@@ -44,6 +44,16 @@ public class Interogation : MonoBehaviour
         //{
         //    setupQuestion(clue);
         //}
+
+        nextQuestion();
+    }
+
+    private void nextQuestion()
+    {
+        Debug.Log(ClueSystem.cluesPlaced.Count());
+        ClueData cd = ClueSystem.cluesPlaced.First();
+        ClueSystem.cluesPlaced.RemoveAt(0);
+        setupQuestion(cd);
     }
 
     private void setupQuestion(ClueData cd)
@@ -86,13 +96,14 @@ public class Interogation : MonoBehaviour
                 else
                 {
                     SceneManager.LoadScene("questions");
+                    // nextQuestion();
                 }
                 Statics.answeredQuestions++;
                 //clickyclick = true;
                 return;
                 //SceneManager.LoadScene("cancelled");
                 
-                //SceneManager.LoadScene("Scenes/end_scenes/jailed");
+                //SceneManager.LoadScene("Scenes/end_scenes/prison");
             });
             return;
         }
@@ -100,7 +111,7 @@ public class Interogation : MonoBehaviour
         button.onClick.AddListener(() =>
         {
             Debug.Log($"The answer was incorrect");
-            SceneManager.LoadScene("Scenes/end_scenes/jailed");
+            SceneManager.LoadScene("Scenes/end_scenes/prison");
             clickyclick = true;
         });
     }
@@ -203,7 +214,7 @@ public class Interogation : MonoBehaviour
 //                return;
 //                //SceneManager.LoadScene("cancelled");
 //                
-//                //SceneManager.LoadScene("Scenes/end_scenes/jailed");
+//                //SceneManager.LoadScene("Scenes/end_scenes/prison");
 //            });
 //            return;
 //        }
@@ -211,7 +222,7 @@ public class Interogation : MonoBehaviour
 //        button.onClick.AddListener(() =>
 //        {
 //            Debug.Log($"The answer was incorrect");
-//            SceneManager.LoadScene("Scenes/end_scenes/jailed");
+//            SceneManager.LoadScene("Scenes/end_scenes/prison");
 //            clickyclick = true;
 //        });
 //    }

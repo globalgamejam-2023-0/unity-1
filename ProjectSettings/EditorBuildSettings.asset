@@ -21,9 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/end_scenes/cancelled.unity
     guid: d68f4146154a4b644a8c4517a0a6a706
   - enabled: 1
-    path: Assets/Scenes/end_scenes/jailed.unity
-    guid: 69f58d31c10f4f0488951f9c45ee4183
-  - enabled: 1
     path: Assets/Scenes/end_scenes/trigger_happy.unity
     guid: 40d2cbce43657cc44aea1189fdb10961
+  - enabled: 1
+    path: Assets/Scenes/end_scenes/prison.unity
+    guid: fe603a0f32f137faebe6eaf86332f8fd
   m_configObjects: {}

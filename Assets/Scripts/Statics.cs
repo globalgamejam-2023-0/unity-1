@@ -5,7 +5,7 @@ public class Statics
 {
     public static List<(string, string)> clueGraphic = new()
     {
-        ("IMG_2562", "IMG_2551"),
+        ("IMG_2562", "IMG_2561"),
         ("IMG_2564", "IMG_2559"),
         ("IMG_2566", "IMG_2558")
     };

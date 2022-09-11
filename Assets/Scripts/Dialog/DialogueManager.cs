@@ -84,7 +84,7 @@ public class DialogueManager : MonoBehaviour
         {
             Debug.Log("img is not null");
             Debug.Log($"Icon: {clue.clueData.graphic.Item2}");
-            img2.sprite = Resources.Load<Sprite>("/Sprites/" + clue.clueData.graphic.Item2);
+            img2.sprite = Resources.Load<Sprite>("Sprites/" + clue.clueData.graphic.Item2);
             //img2.sprite = Resources.Load<Sprite>("Sprites/IMG_2561");
         }
         else
