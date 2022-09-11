@@ -6,7 +6,7 @@ public class OfficeScene : MonoBehaviour
     public void gotit()
     {
         Debug.Log("Back has been pressed");
-        SceneManager.LoadScene("prototype5-rkh");
+        SceneManager.LoadScene("gameworld");
     }
     
 }
