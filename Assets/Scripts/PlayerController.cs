@@ -7,11 +7,14 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private int walkSpeed = 4;
     private Rigidbody2D body;
-    private float inputH;
-    private float inputV;
+    //private float inputH;
+    //private float inputV;
+    public Animator animator;
 
     public AudioSource audio;
     public AudioClip audioWalk;
+
+    Vector2 movement;
     
     // Start is called before the first frame update
     void Start()
@@ -23,15 +26,23 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        inputH = Input.GetAxisRaw("Horizontal");
-        inputV = Input.GetAxisRaw("Vertical");
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
+
+        animator.SetFloat("Horizontal", movement.x);
+        animator.SetFloat("Vertical", movement.y);
+        animator.SetFloat("Speed", movement.sqrMagnitude);
+
+
     }
 
     void FixedUpdate()
     {
-        if (inputH != 0 || inputV != 0)
+        if (movement.x != 0 || movement.y != 0)
         {
-            body.velocity = new Vector2(inputH * walkSpeed, inputV * walkSpeed);
+            body.MovePosition(body.position + movement * walkSpeed * Time.fixedDeltaTime);
+            
+
 
             if (!audio.isPlaying) {
                 audio.clip = audioWalk;
