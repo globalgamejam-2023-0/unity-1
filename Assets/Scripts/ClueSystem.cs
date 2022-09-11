@@ -132,7 +132,7 @@ public class ClueSystem : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && dialogueManager.animator.GetBool("IsOpen"))
         {
             dialogueManager.EndDialogue();
         }

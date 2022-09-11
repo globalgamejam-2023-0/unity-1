@@ -15,6 +15,10 @@ public class DialogueManager : MonoBehaviour
     public Animator animator;
     public GameObject img;
 
+    public AudioSource audio;
+    public AudioClip audioEnterPaper;
+    public AudioClip audioExitPaper;
+
 
     private Queue<string> clues; // first in first out
 
@@ -22,17 +26,13 @@ public class DialogueManager : MonoBehaviour
     private void Start()
     {
         clues = new Queue<string>();
-        
-        
     }
 
     public void StartDialogue (Dialogue dialogue)
     {
         Debug.Log("Starting dialogue");
 
-        
-
-        animator.SetBool("IsOpen",true);
+        animator.SetBool("IsOpen", true);
 
         nameText.text = dialogue.clue;
 
@@ -41,11 +41,9 @@ public class DialogueManager : MonoBehaviour
         foreach (string clue in dialogue.cluesForQueue)
         {
             clues.Enqueue(clue);
-
         }
 
-        DisplayNextClue(); 
-
+        DisplayNextClue();
     }
 
     public void DisplayNextClue()
@@ -58,17 +56,22 @@ public class DialogueManager : MonoBehaviour
 
         string clue = clues.Dequeue();
         dialogueText.text = clue;
+        audio.clip = audioEnterPaper;
+        audio.Play();
         Time.timeScale = 0;
         Debug.Log(clue);
-
     }
 
     public void EndDialogue()
     {
         Debug.Log("remove Dialogue");
-        Time.timeScale = 1;
-        animator.SetBool("IsOpen",false);
 
+        Time.timeScale = 1;
+        
+        audio.clip = audioExitPaper;
+        audio.Play();
+
+        animator.SetBool("IsOpen", false);
     }
     
     public void TriggerDialogue(Clue clue)
@@ -93,5 +96,4 @@ public class DialogueManager : MonoBehaviour
         //Debug.Log($"Image: {img.sprite}");
         FindObjectOfType<DialogueManager>().StartDialogue(d);
     }
-
 }

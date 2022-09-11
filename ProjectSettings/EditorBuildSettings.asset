@@ -9,17 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenuScene.unity
     guid: 732b5d6be8132d74ba6b7c50e4647e90
   - enabled: 1
-    path: Assets/Scenes/light-0.unity
-    guid: 29f33b81a4444259dbf842d6acf330e5
-  - enabled: 1
-    path: Assets/Scenes/Prototype_2.unity
-    guid: d5f6118bf02b22f40b1417ccac92eb0d
-  - enabled: 1
-    path: Assets/Scenes/QuestioningScene_dev.unity
-    guid: df25c59650bd8a6469b5af5e91407667
-  - enabled: 1
-    path: Assets/Scenes/RoomScene-DP 1.unity
-    guid: 62d9f1a81af801f4cb6629f3a4327a51
+    path: Assets/Scenes/prototype3.unity
+    guid: 804307dcec0e2a248a0ea875c9b86918
   - enabled: 1
     path: Assets/Scenes/questions.unity
     guid: 7e898fd2ff9413145971a0bdc9ea2629
@@ -32,7 +23,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/end_scenes/trigger_happy.unity
     guid: 40d2cbce43657cc44aea1189fdb10961
-  - enabled: 1
-    path: Assets/Scenes/rkh1.unity
-    guid: 52569d0411275e44cadcd7012958aa66
   m_configObjects: {}
