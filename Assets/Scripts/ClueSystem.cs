@@ -37,6 +37,38 @@ public class ClueSystem : MonoBehaviour
             "Stranger Things", "Rings of Power", "Game of Thrones",
             "House of the Dragons"
         };
+
+    private List<string> actions =
+        new()
+        {
+            "Cheat on his wife",
+            "kill the neighbour's dog",
+            "hit your sister"
+        };
+    
+    private List<string> membership =
+        new()
+        {
+            "KKK",
+            "New-Age Nazi",
+            "A Korean boy band"
+        };
+    
+    private List<string> music =
+        new()
+        {
+            "Pop",
+            "Country",
+            "METAL"
+        };
+    
+    private List<string> cats =
+        new()
+        {
+            "poisonous fangs",
+            "claws of steel",
+            "fur which spreads radiation"
+        };
     
     private List<string> clueTextures = new()
     {
@@ -215,6 +247,42 @@ public class ClueSystem : MonoBehaviour
             3,
             true);
         clueData.Add(cd4);
+        
+        ClueData cd5 = createClueData(
+            actions,
+             "He Dun Wat",
+             "The president did {0}.",
+             "What did the president do?",
+             3,
+             true);
+        clueData.Add(cd5);
+        
+        ClueData cd6 = createClueData(
+            membership,
+             "Member of",
+             "The president is a member of {0}.",
+             "President is rumoured to be a member of?",
+             3,
+             true);
+        clueData.Add(cd6);
+        
+        ClueData cd7 = createClueData(
+            music,
+             "Music",
+             "The president loves {0}.",
+             "President is fascinated with music, which type does he like?",
+             3,
+             true);
+        clueData.Add(cd7);
+        
+        ClueData cd8 = createClueData(
+            cats,
+             "Secret Cat",
+             "The president's secret cat power is {0}.",
+             "What is the president's secret?",
+             3,
+             true);
+        clueData.Add(cd8);
         
         return clueData.OrderBy(cd => Guid.NewGuid()).ToList();
     }
