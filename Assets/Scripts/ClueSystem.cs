@@ -20,11 +20,21 @@ public class ClueSystem : MonoBehaviour
         new() { "blue", "green", "red", "yellow", "black", "purple", "orange" };
 
     private List<string> notz =
-        new() { "not", "" };
+        new() { "high treason", "corruption", "mutiny" };
 
     private List<string> guns =
         new() { "Glock", "AWP", "M4A1-S", "Desert Eagle", "UPS", "Bazooka" };
 
+    private List<string> persons =
+        new() { "unknown woman", "mafia boss", "Jacket Rick", "Evil Morty" };
+
+    private List<string> shows =
+        new()
+        {
+            "Stranger Things", "Rings of Power", "Game of Thrones",
+            "House of the Dragons"
+        };
+    
     private List<string> clueTextures = new()
     {
         "Sprites/IMG_2562",
@@ -132,7 +142,7 @@ public class ClueSystem : MonoBehaviour
             Debug.Log("Questioning scene");
             //Debug.Log($"Size of cluesPlaced: {cluesPlaced.Count()}");
             //DataSaver.saveData(cluesPlaced, "cluesPlaced");
-            SceneManager.LoadScene("QuestioningScene_dev");
+            SceneManager.LoadScene("questions");
         }
     }
 
@@ -162,30 +172,51 @@ public class ClueSystem : MonoBehaviour
             "President's car",
             "The president was seen in a {0} car",
             "What colour was the president's car?",
-            3);
+            3,
+            true);
         clueData.Add(cd0);
 
         ClueData cd1 = createClueData(
             notz,
             "A corrupt president",
-            "Mr. President, you are {0} corrupt",
-            "Is the president corrupt?",
-            2);
+            "Mr. President, you are corrupt, you're convicted of {0}",
+            "What was the president convicted of?",
+            3,
+            true);
         clueData.Add(cd1);
 
         ClueData cd2 = createClueData(
             guns,
             "A trigger happy president",
             "The president aimed a {0} at a person",
-            "Which gun was the president wiedling?",
-            3);
+            "Which gun was the president wielding?",
+            3,
+            true);
         clueData.Add(cd2);
+        
+        ClueData cd3 = createClueData(
+            persons,
+            "The president's cabal",
+            "{0} was seen with the president in a dark alley",
+            "Who was the president seen with?",
+            3,
+            true);
+        clueData.Add(cd3);
+
+        ClueData cd4 = createClueData(
+            shows,
+            "Strange preferences",
+            "{0} is the President's favourite show.",
+            "Which show does the President like?",
+            3,
+            true);
+        clueData.Add(cd4);
 
         return clueData.OrderBy(cd => Guid.NewGuid()).ToList();
     }
 
     private ClueData createClueData(List<string> list, string clueName,
-        string clueText, string clueQuestion, int answers)
+        string clueText, string clueQuestion, int answers, bool truthiness)
     {
         ClueData cd = new();
         cd.adjectives = randomizedList(list);
@@ -196,6 +227,7 @@ public class ClueSystem : MonoBehaviour
         cd.question = clueQuestion;
         cd.answers = answers;
         cd.graphic = Statics.randomClueGraphics();
+        cd.truthiness = truthiness;
         return cd;
     }
     

@@ -47,7 +47,7 @@ public class CountDownTimer : MonoBehaviour {
             Player.SetActive(false);
 
             //GameOver();
-            SceneManager.LoadScene("QuestioningScene_dev");
+            SceneManager.LoadScene("questions");
 
 
         }

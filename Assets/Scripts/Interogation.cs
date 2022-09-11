@@ -5,65 +5,65 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Interogation : MonoBehaviour
 {
-    public GameObject q1;
-    public GameObject q2;
-    public GameObject q3;
-
     public TextMeshProUGUI adj1;
     public TextMeshProUGUI adj2;
     public TextMeshProUGUI adj3;
     public TextMeshProUGUI question;
-    //private List<ClueData> cluesPlaced;
+    public Button button1;
+    public Button button2;
+    public Button button3;
     
     private void Start()
     {
-        //cluesPlaced = DataSaver.loadData<List<ClueData>>("cluesPlaced");
-        
+        setupQuestion();
+    }
+
+    private void setupQuestion()
+    {
         ClueData cd = ClueSystem.cluesPlaced.First();
-        List<string> cds = new();
-        cds.Add(cd.adjective);
-        cds.Add(cd.adjectives.First());
-        cds.RemoveAt(0);
-        cds.Add(cds.First());
-        cds = cds.OrderBy(c => Guid.NewGuid()).ToList();
-
-        adj1.SetText(cds[0]);
-        question.SetText(cd.question);
+        List<(bool, string)> cds = new();
+        cds.Add((true, cd.adjective));
+        cds.Add((false, cd.adjectives.First()));
+        cd.adjectives.RemoveAt(0);
+        cds.Add((false, cd.adjectives.First()));
+        cds = cds.OrderBy(answer => Guid.NewGuid()).ToList();
         
-
-        //OnMouseDown.
+        adj1.SetText(cds.First().Item2);
+        setupButton(cds.First(), button1);
+        cds.RemoveAt(0);
+        
+        adj2.SetText(cds.First().Item2);
+        setupButton(cds.First(), button2);
+        cds.RemoveAt(0);
+        
+        adj3.SetText(cds.First().Item2);
+        setupButton(cds.First(), button3);
+        cds.RemoveAt(0);
+        
+        question.SetText(cd.question);
     }
 
-    private void FixedUpdate()
+    private void setupButton((bool, string) answer, Button button)
     {
-        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //RaycastHit2D hit =
-        //    Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
-        //if (hit)
-        //{
-        //    Debug.Log(hit.collider.GameObject().name);
-        //}
-    }
-
-    private void Update()
-    {
-        ClickCard();
-    }
-
-    private void ClickCard()
-    {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (answer.Item1)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit2D hit =
-                Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
-            if (hit)
+            button.onClick.AddListener(() =>
             {
-                Debug.Log(hit.collider.GameObject().name);
-            }
+                Debug.Log($"The answer was correct");
+                SceneManager.LoadScene("Scenes/end_scenes/jailed");
+            });
+            return;
         }
+        
+        button.onClick.AddListener(() =>
+        {
+            Debug.Log($"The answer was incorrect");
+            SceneManager.LoadScene("Scenes/end_scenes/jailed");
+        });
     }
 }
