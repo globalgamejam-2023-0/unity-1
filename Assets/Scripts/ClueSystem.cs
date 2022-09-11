@@ -107,7 +107,7 @@ public class ClueSystem : MonoBehaviour
         spriteRenderer.enabled = false;
         foreach (GameObject clue in clues)
         {
-            if ((clue) && ((clue.transform.position - player.transform.position).magnitude < 3.0f))
+            if ((clue) && ((clue.transform.position - player.transform.position).magnitude < 5.0f))
             {
                 // Do something here
                 //Debug.Log("Player is close to: ???");

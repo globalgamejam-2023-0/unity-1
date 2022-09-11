@@ -23,10 +23,6 @@ public class Interogation : MonoBehaviour
     private void Start()
     {
         ClueData cd = ClueSystem.cluesPlaced.First();
-        if (ClueSystem.cluesPlaced.Count() < 1 || Statics.answeredQuestions < amountOfQuestions)
-        {
-            SceneManager.LoadScene("cancelled");
-        }
         ClueSystem.cluesPlaced.RemoveAt(0);
         setupQuestion(cd);
         //List<ClueData> questions = ClueSystem.cluesPlaced;
@@ -79,8 +75,22 @@ public class Interogation : MonoBehaviour
             button.onClick.AddListener(() =>
             {
                 Debug.Log($"The answer was correct");
-                SceneManager.LoadScene("questions");
                 Statics.answeredQuestions++;
+                Debug.Log($"Shown answers: {Statics.answeredQuestions}");
+
+                if (ClueSystem.cluesPlaced.Count() <= 0)
+                {
+                    Debug.Log("Cancelled president!");
+                    SceneManager.LoadScene("cancelled");
+                }
+                
+                if (Statics.answeredQuestions >= amountOfQuestions)
+                {
+                    Debug.Log("Cancelled president!");
+                    SceneManager.LoadScene("cancelled");
+                }
+                SceneManager.LoadScene("questions");
+                //Statics.answeredQuestions++;
                 //clickyclick = true;
                 return;
                 //SceneManager.LoadScene("cancelled");
