@@ -3286,7 +3286,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameOverScreen: {fileID: 1638211676}
   Player: {fileID: 0}
-  startingTime: 120
+  startingTime: 60
   countdown: {fileID: 863520007}
 --- !u!114 &369787614
 MonoBehaviour:
