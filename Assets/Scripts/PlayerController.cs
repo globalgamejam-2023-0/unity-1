@@ -10,7 +10,8 @@ public class PlayerController : MonoBehaviour
     private float inputH;
     private float inputV;
 
-    
+    public AudioSource audio;
+    public AudioClip audioWalk;
     
     // Start is called before the first frame update
     void Start()
@@ -31,10 +32,19 @@ public class PlayerController : MonoBehaviour
         if (inputH != 0 || inputV != 0)
         {
             body.velocity = new Vector2(inputH * walkSpeed, inputV * walkSpeed);
+
+            if (!audio.isPlaying) {
+                audio.clip = audioWalk;
+                audio.Play();
+            }
         }
         else
         {
             body.velocity = new Vector2(0f, 0f);
+
+            if (audio.isPlaying) {
+                audio.Stop();
+            }
         }
         
     }
