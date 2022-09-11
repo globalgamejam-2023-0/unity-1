@@ -14,4 +14,8 @@ public class Statics
     {
         return Statics.clueGraphic[Random.Range(0, Statics.clueGraphic.Count - 1)];
     }
+
+    public static string cluesFound = "Clues found: ";
+
+    public static int answeredQuestions = 0;
 }

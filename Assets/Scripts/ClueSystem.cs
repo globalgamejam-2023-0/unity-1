@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,6 +12,8 @@ using Random = UnityEngine.Random;
 public class ClueSystem : MonoBehaviour
 {
     public GameObject player;
+
+    public TextMeshProUGUI cluesFoundText;
     //public GameObject camera;
     public List<GameObject> clues;
     private SpriteRenderer spriteRenderer;
@@ -119,6 +122,7 @@ public class ClueSystem : MonoBehaviour
 
     private void Update()
     {
+        cluesFoundText.SetText($"Clues found: {clueDatasFound.Count()}/{cluesPlaced.Count()}");
         if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E)) && spriteRenderer.enabled)
         {
             Debug.Log("X");
@@ -211,7 +215,7 @@ public class ClueSystem : MonoBehaviour
             3,
             true);
         clueData.Add(cd4);
-
+        
         return clueData.OrderBy(cd => Guid.NewGuid()).ToList();
     }
 

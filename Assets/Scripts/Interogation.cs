@@ -17,15 +17,39 @@ public class Interogation : MonoBehaviour
     public Button button1;
     public Button button2;
     public Button button3;
+    public int amountOfQuestions = 2;
+    private bool clickyclick = false;
     
     private void Start()
     {
-        setupQuestion();
+        ClueData cd = ClueSystem.cluesPlaced.First();
+        if (ClueSystem.cluesPlaced.Count() < 1 || Statics.answeredQuestions < amountOfQuestions)
+        {
+            SceneManager.LoadScene("cancelled");
+        }
+        ClueSystem.cluesPlaced.RemoveAt(0);
+        setupQuestion(cd);
+        //List<ClueData> questions = ClueSystem.cluesPlaced;
+        //int i = 0;
+        //clickyclick = false;
+        //while (i < amountOfQuestions && questions.Count() > 0)
+        //{
+        //    i++;
+        //    setupQuestion(questions.First());
+        //    questions.RemoveAt(0);
+        //}
+
+        //SceneManager.LoadScene("cancelled");
+        //foreach (var clue in ClueSystem.cluesPlaced)
+        //{
+        //    setupQuestion(clue);
+        //}
     }
 
-    private void setupQuestion()
+    private void setupQuestion(ClueData cd)
     {
-        ClueData cd = ClueSystem.cluesPlaced.First();
+        Debug.Log($"Correct answer is: {cd.adjective}");
+        //ClueData cd = ClueSystem.cluesPlaced.First();
         List<(bool, string)> cds = new();
         cds.Add((true, cd.adjective));
         cds.Add((false, cd.adjectives.First()));
@@ -55,7 +79,13 @@ public class Interogation : MonoBehaviour
             button.onClick.AddListener(() =>
             {
                 Debug.Log($"The answer was correct");
-                SceneManager.LoadScene("Scenes/end_scenes/jailed");
+                SceneManager.LoadScene("questions");
+                Statics.answeredQuestions++;
+                //clickyclick = true;
+                return;
+                //SceneManager.LoadScene("cancelled");
+                
+                //SceneManager.LoadScene("Scenes/end_scenes/jailed");
             });
             return;
         }
@@ -64,6 +94,7 @@ public class Interogation : MonoBehaviour
         {
             Debug.Log($"The answer was incorrect");
             SceneManager.LoadScene("Scenes/end_scenes/jailed");
+            clickyclick = true;
         });
     }
 }
