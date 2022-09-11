@@ -85,6 +85,7 @@ public class ClueSystem : MonoBehaviour
     
     void Start()
     {
+        Statics.answeredQuestions = 0;
         clueDatas = new();
         cluesPlaced = new();
         clueDatasFound = new();
