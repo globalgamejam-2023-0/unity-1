@@ -85,6 +85,10 @@ public class ClueSystem : MonoBehaviour
     
     void Start()
     {
+        clueDatas = new();
+        cluesPlaced = new();
+        clueDatasFound = new();
+            
         clueDatas = createStory();
         spriteRenderer = GetComponent<SpriteRenderer>();
         clues = new();
