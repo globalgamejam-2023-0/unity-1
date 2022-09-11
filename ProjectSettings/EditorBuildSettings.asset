@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/RoomScene-DP 1.unity
     guid: 62d9f1a81af801f4cb6629f3a4327a51
+  - enabled: 1
+    path: Assets/Scenes/TorkilQuestioning.unity
+    guid: 7e898fd2ff9413145971a0bdc9ea2629
   m_configObjects: {}

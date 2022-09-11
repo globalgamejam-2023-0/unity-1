@@ -126,7 +126,7 @@ public class ClueSystem : MonoBehaviour
             Debug.Log("Questioning scene");
             //Debug.Log($"Size of cluesPlaced: {cluesPlaced.Count()}");
             //DataSaver.saveData(cluesPlaced, "cluesPlaced");
-            SceneManager.LoadScene("QuestioningScene_dev");
+            SceneManager.LoadScene("TorkilQuestioning");
         }
     }
 

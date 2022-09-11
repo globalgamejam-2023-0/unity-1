@@ -26,13 +26,26 @@ public class Interogation : MonoBehaviour
         List<string> cds = new();
         cds.Add(cd.adjective);
         cds.Add(cd.adjectives.First());
+        cd.adjectives.RemoveAt(0);
+        cds.Add(cd.adjectives.First());
+        cds = cds.OrderBy(answer => Guid.NewGuid()).ToList();
+        adj1.SetText(cds.First());
+        cds.RemoveAt(0);
+        adj2.SetText(cds.First());
+        cds.RemoveAt(0);
+        adj3.SetText(cds.First());
+        cds.RemoveAt(0);
+        /*
+        cds.Add(cd.adjective);
+        cds.Add(cd.adjectives.First());
         cds.RemoveAt(0);
         cds.Add(cds.First());
         cds = cds.OrderBy(c => Guid.NewGuid()).ToList();
 
         adj1.SetText(cds[0]);
         question.SetText(cd.question);
-        
+        */
+        question.SetText(cd.question);
 
         //OnMouseDown.
     }
