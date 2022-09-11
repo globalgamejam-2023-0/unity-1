@@ -13,6 +13,7 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI dialogueText;
 
     public Animator animator;
+    public GameObject img;
 
 
     private Queue<string> clues; // first in first out
@@ -75,6 +76,21 @@ public class DialogueManager : MonoBehaviour
         Dialogue d = new Dialogue();
         d.clue = clue.clueData.clueName;
         d.cluesForQueue = new[] { String.Format(clue.clueData.clueText, clue.clueData.adjective) };
+        Image img2 = img.GetComponentInChildren<Image>();
+        if (img2)
+        {
+            Debug.Log("img is not null");
+            Debug.Log($"Icon: {clue.clueData.graphic.Item2}");
+            img2.sprite = Resources.Load<Sprite>("/Sprites/" + clue.clueData.graphic.Item2);
+            //img2.sprite = Resources.Load<Sprite>("Sprites/IMG_2561");
+        }
+        else
+        {
+            Debug.Log("img is null");
+        }
+        //img.sprite = Resources.Load<Sprite>("/Resources/IMG_2561");
+        //img.sprite = Resources.Load<Sprite>("Resources/IMG_2561");
+        //Debug.Log($"Image: {img.sprite}");
         FindObjectOfType<DialogueManager>().StartDialogue(d);
     }
 

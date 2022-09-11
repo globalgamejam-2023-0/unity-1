@@ -24,9 +24,13 @@ public class ClueSystem : MonoBehaviour
 
     private List<string> guns =
         new() { "Glock", "AWP", "M4A1-S", "Desert Eagle", "UPS", "Bazooka" };
-    
-    private List<(int, int)> cluePositions =
-        new() { (300, 170), (330, 140) };
+
+    private List<string> clueTextures = new()
+    {
+        "Sprites/IMG_2562",
+        "Sprites/IMG_2564",
+        "Sprites/IMG_2566"
+    };
 
     public List<ClueData> clueDatas      = new();
     public static List<ClueData> cluesPlaced    = new();
@@ -78,7 +82,9 @@ public class ClueSystem : MonoBehaviour
         
         SpriteRenderer spriteRenderer = clueGo.AddComponent<SpriteRenderer>();
         spriteRenderer.enabled = true;
-        spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/IMG_2564");
+        //spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/IMG_2564");
+        spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/" + clueData.graphic.Item1);
+        //spriteRenderer.sprite = Resources.Load<Sprite>(randomClueTexture());
 
         clues.Add(clueGo);
     }
@@ -145,6 +151,8 @@ public class ClueSystem : MonoBehaviour
         return list.OrderBy(item => Guid.NewGuid()).ToList();
     }
     
+    
+    
     private List<ClueData> createStory()
     {
         List<ClueData> clueData = new();
@@ -155,14 +163,6 @@ public class ClueSystem : MonoBehaviour
             "The president was seen in a {0} car",
             "What colour was the president's car?",
             3);
-        //ClueData cd0 = new();
-        //cd0.adjectives = randomizedList(colours);
-        //cd0.adjective = cd0.adjectives.First();
-        //cd0.adjectives.RemoveAt(0);
-        //cd0.clueName = "President's car.";
-        //cd0.clueText = "The president was seen in a {0} car.";
-        //cd0.question = "What colour was the president's car?";
-        //cd0.answers = 3;
         clueData.Add(cd0);
 
         ClueData cd1 = createClueData(
@@ -172,16 +172,6 @@ public class ClueSystem : MonoBehaviour
             "Is the president corrupt?",
             2);
         clueData.Add(cd1);
-        //ClueData cd1 = new();
-        //cd1.adjectives = randomizedList(notz);
-        //cd1.adjective = cd1.adjectives.First();
-        //cd1.adjectives.RemoveAt(0);
-        //cd1.clueName = "A corrupt president.";
-        //cd1.clueText = "Mr. President, you are {0} corrupt!";
-        //cd1.question = "Is the president guilty?";
-        //cd1.answers = 2;
-        //clueData.Add(cd1);
-        //
 
         ClueData cd2 = createClueData(
             guns,
@@ -190,16 +180,6 @@ public class ClueSystem : MonoBehaviour
             "Which gun was the president wiedling?",
             3);
         clueData.Add(cd2);
-        //ClueData cd2 = new();
-        //cd2.adjectives = randomizedList(guns);
-        //cd2.adjective = cd2.adjectives.First();
-        //cd2.adjectives.RemoveAt(0);
-        //cd2.clueName = "A trigger happy president";
-        //cd2.clueText = "The president aimed at a person with {0}";
-        //cd2.question = "Which gun was the president seen with?";
-        //cd2.answers = 2;
-        //clueData.Add(cd2);
-        
 
         return clueData.OrderBy(cd => Guid.NewGuid()).ToList();
     }
@@ -215,6 +195,7 @@ public class ClueSystem : MonoBehaviour
         cd.clueText = clueText;
         cd.question = clueQuestion;
         cd.answers = answers;
+        cd.graphic = Statics.randomClueGraphics();
         return cd;
     }
     
@@ -222,5 +203,10 @@ public class ClueSystem : MonoBehaviour
     {
         int tmp = Random.Range(100000, 999999);
         return "clue" + tmp;
+    }
+
+    private string randomClueTexture()
+    {
+        return clueTextures.OrderBy(t => Guid.NewGuid()).ToList().First();
     }
 }
