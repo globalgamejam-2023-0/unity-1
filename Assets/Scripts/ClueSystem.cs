@@ -161,7 +161,7 @@ public class ClueSystem : MonoBehaviour
 
     private void Update()
     {
-        cluesFoundText.SetText($"Clues found: {clueDatasFound.Count()}/{cluesPlaced.Count()}");
+        cluesFoundText.SetText($"Clues: {clueDatasFound.Count()}/{cluesPlaced.Count()}");
         if (openDialog && Input.GetKeyDown(KeyCode.Space))
         {
             openDialog = false;
