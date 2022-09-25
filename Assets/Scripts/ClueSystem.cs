@@ -14,7 +14,10 @@ public class ClueSystem : MonoBehaviour
     public GameObject player;
 
     private bool openDialog { get; set; } = false;
+
+    private bool exitDialogShown { get; set; } = false;
     
+    public TextMeshProUGUI skipToNextStep;
     public TextMeshProUGUI cluesFoundText;
     //public GameObject camera;
     public List<GameObject> clues;
@@ -87,6 +90,8 @@ public class ClueSystem : MonoBehaviour
     
     void Start()
     {
+        
+        skipToNextStep.gameObject.SetActive(false);
         Statics.answeredQuestions = 0;
         clueDatas = new();
         cluesPlaced = new();
@@ -161,12 +166,22 @@ public class ClueSystem : MonoBehaviour
 
     private void Update()
     {
+        if (exitDialogShown && Input.GetKeyDown(KeyCode.Space))
+        {
+            SceneManager.LoadScene("questions");
+        }
+        
         cluesFoundText.SetText($"Clues: {clueDatasFound.Count()}/{cluesPlaced.Count()}");
         if (openDialog && Input.GetKeyDown(KeyCode.Space))
         {
             openDialog = false;
             Debug.Log("Removing dialog");
             dialogueManager.EndDialogue();
+            if (clueDatasFound.Count() == cluesPlaced.Count())
+            {
+                exitDialogShown = true;
+                skipToNextStep.gameObject.SetActive(true);
+            }
         } 
         if (((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E)) && spriteRenderer.enabled))
         {
