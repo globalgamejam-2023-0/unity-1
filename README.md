@@ -1,5 +1,7 @@
 # Da Wh1stl3blower
 
+![](./doc/main-menu-0.png)
+
 The game can be played in the browser here:
 
 https://gamejam-2022-banan.github.io/gamejam-2022-banan/
