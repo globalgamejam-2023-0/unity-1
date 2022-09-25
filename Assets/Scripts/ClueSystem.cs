@@ -13,6 +13,8 @@ public class ClueSystem : MonoBehaviour
 {
     public GameObject player;
 
+    private bool openDialog { get; set; } = false;
+    
     public TextMeshProUGUI cluesFoundText;
     //public GameObject camera;
     public List<GameObject> clues;
@@ -160,9 +162,16 @@ public class ClueSystem : MonoBehaviour
     private void Update()
     {
         cluesFoundText.SetText($"Clues found: {clueDatasFound.Count()}/{cluesPlaced.Count()}");
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E)) && spriteRenderer.enabled)
+        if (openDialog && Input.GetKeyDown(KeyCode.Space))
+        {
+            openDialog = false;
+            Debug.Log("Removing dialog");
+            dialogueManager.EndDialogue();
+        } 
+        if (((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E)) && spriteRenderer.enabled))
         {
             Debug.Log("X");
+            openDialog = true;
             Clue clue = currentClue.GetComponent<Clue>();
             if (clue != null)
             {
