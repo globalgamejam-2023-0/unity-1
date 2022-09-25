@@ -26,6 +26,7 @@ Exit use state : ESC (Escape button)
 
 ## Images
 
+![](./doc/office-scene-0.png)
 ![](./doc/gamejam-image-0.png)
 ![](./doc/gamejam-image-1.png)
 ![](./doc/gamejam-image-2.png)
