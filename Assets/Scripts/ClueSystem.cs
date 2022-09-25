@@ -13,8 +13,6 @@ public class ClueSystem : MonoBehaviour
 {
     public GameObject player;
 
-    private bool openDialog { get; set; } = false;
-
     private bool exitDialogShown { get; set; } = false;
     
     public TextMeshProUGUI skipToNextStep;
@@ -143,6 +141,8 @@ public class ClueSystem : MonoBehaviour
         spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/" + clueData.graphic.Item1);
         //spriteRenderer.sprite = Resources.Load<Sprite>(randomClueTexture());
 
+        // spriteRenderer.sortingOrder = 3;
+
         clues.Add(clueGo);
     }
     
@@ -172,21 +172,10 @@ public class ClueSystem : MonoBehaviour
         }
         
         cluesFoundText.SetText($"Clues: {clueDatasFound.Count()}/{cluesPlaced.Count()}");
-        if (openDialog && Input.GetKeyDown(KeyCode.Space))
-        {
-            openDialog = false;
-            Debug.Log("Removing dialog");
-            dialogueManager.EndDialogue();
-            if (clueDatasFound.Count() == cluesPlaced.Count())
-            {
-                exitDialogShown = true;
-                skipToNextStep.gameObject.SetActive(true);
-            }
-        } 
-        if (((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E)) && spriteRenderer.enabled))
+
+        if (!dialogueManager.animator.GetBool("IsOpen") && ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E)) && spriteRenderer.enabled))
         {
             Debug.Log("X");
-            openDialog = true;
             Clue clue = currentClue.GetComponent<Clue>();
             if (clue != null)
             {
@@ -194,14 +183,18 @@ public class ClueSystem : MonoBehaviour
                 clueDatasFound.Add(clue.clueData);
                 Destroy(currentClue);
             }
-
         }
-
-        if (Input.GetKeyDown(KeyCode.Escape) && dialogueManager.animator.GetBool("IsOpen"))
+        else if (dialogueManager.animator.GetBool("IsOpen") && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape)))
         {
+            Debug.Log("Removing dialog");
             dialogueManager.EndDialogue();
+            if (clueDatasFound.Count() == cluesPlaced.Count())
+            {
+                exitDialogShown = true;
+                skipToNextStep.gameObject.SetActive(true);
+            }
         }
-
+        
         if (Input.GetKeyDown(KeyCode.O))
         {
             Debug.Log("Questioning scene");
