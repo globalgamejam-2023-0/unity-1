@@ -1,6 +1,6 @@
 # Da Wh1stl3blower
 
-![](./doc/main-menu-0.png)
+![](./doc/cover-0.png)
 
 The game can be played in the browser here:
 
