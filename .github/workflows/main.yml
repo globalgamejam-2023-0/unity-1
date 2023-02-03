@@ -8,6 +8,9 @@ on:
 
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   buildWebGL:
     name: Build for WebGL
@@ -57,6 +60,7 @@ jobs:
           path: build
 
       - name: Deploy
+        # uses: JamesIves/github-pages-deploy-action@v4.4.1
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
           branch: gh-pages
