@@ -9,11 +9,9 @@ public class MainMenu : MonoBehaviour
     public void playGame()
     {
         Debug.Log("Play Game has been pressed");
-        //SceneManager.LoadScene(1); 
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); 
-        SceneManager.LoadScene("OfficeScene");
-        // tekur n�sta scenuna um ta� skal vera �v�s scena mugu vit specifisera ta� � SceneManager
-        // er � "File" "Build And Run" og Scenes in build skal h�la scenurnar inn.
+        //SceneManager.LoadScene(1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        // SceneManager.LoadScene("Game");
     }
 
     public void GoToSettingsMenu()
