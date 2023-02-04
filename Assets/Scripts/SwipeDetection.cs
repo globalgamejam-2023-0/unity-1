@@ -52,10 +52,12 @@ public class SwipeDetection : MonoBehaviour
         startPosition = position;
         startTime = time;
 
-        trail.SetActive(true);
-        trail.transform.position = position;
+        if (trail != null) {
+            trail.SetActive(true);
+            trail.transform.position = position;
 
-        coroutine = StartCoroutine(Trail());
+            coroutine = StartCoroutine(Trail());
+        }
     }
 
     private IEnumerator Trail() {
@@ -66,9 +68,10 @@ public class SwipeDetection : MonoBehaviour
     }
 
     private void SwipeEnd(Vector2 position, float time) {
-        trail.SetActive(false);
-
-        StopCoroutine(coroutine);
+        if (trail != null) {
+            trail.SetActive(false);
+            StopCoroutine(coroutine);
+        }
 
         endPosition = position;
         endTime = time;

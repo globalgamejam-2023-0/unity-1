@@ -12,7 +12,7 @@ public enum Direction {
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private int walkSpeed = 7;
+    [SerializeField] private int walkSpeed = 100;
     private Rigidbody2D body;
     //private float inputH;
     //private float inputV;
@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 position;
     private float width;
     private float height;
+
+    private Coroutine coroutine;
 
     public void MoveVec(float x, float y) {
         if (movement.y == -1 && y == 1) {
@@ -65,12 +67,58 @@ public class PlayerController : MonoBehaviour
         }
     }
     
+    void SpawnTrail(float x, float y)
+    {
+        // GameObject myLine = new GameObject();
+        // myLine.transform.position = start;
+        // myLine.AddComponent<LineRenderer>();
+        // LineRenderer lr = myLine.GetComponent<LineRenderer>();
+        // lr.material = new Material(Shader.Find("Particles/Alpha Blended Premultiply"));
+        // lr.SetColors(color, color);
+        // lr.SetWidth(0.1f, 0.1f);
+        // lr.SetPosition(0, start);
+        // lr.SetPosition(1, end);
+        // GameObject.Destroy(myLine, duration);
+
+        GameObject clueGo = new GameObject();
+        // clueGo.name = clueName();
+        clueGo.transform.position = Vector3.zero + new Vector3(x, y, 1);
+        clueGo.transform.localScale = new Vector3(0.5f, 0.5f, 1);
+        
+        // var clue = clueGo.AddComponent<GameObject>();
+        // clue.go = clueGo;
+        // clue.clueData = clueData;
+        
+        SpriteRenderer spriteRenderer = clueGo.AddComponent<SpriteRenderer>();
+        spriteRenderer.enabled = true;
+        spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Round");
+        //spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/IMG_2564");
+        // spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/" + clueData.graphic.Item1);
+        //spriteRenderer.sprite = Resources.Load<Sprite>(randomClueTexture());
+
+        spriteRenderer.sortingOrder = 1;
+
+        // clues.Add(clueGo);
+    }
+    
     // Start is called before the first frame update
     void Start()
     {
         body = gameObject.GetComponent<Rigidbody2D>();
 
         Move(Direction.DOWN);
+
+        coroutine = StartCoroutine(LimitedUpdate());
+    }
+
+    private IEnumerator LimitedUpdate() {
+        while(true) {
+            var prevPos = body.position;
+            body.MovePosition(body.position + movement * walkSpeed * Time.fixedDeltaTime);
+            yield return new WaitForSeconds(0.050f);
+            SpawnTrail(prevPos.x, prevPos.y);
+            yield return new WaitForSeconds(0.600f);
+        }
     }
 
     // Update is called once per frame
@@ -88,7 +136,11 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        body.MovePosition(body.position + movement * walkSpeed * Time.fixedDeltaTime);
+        // body.MovePosition(body.position + movement * walkSpeed * Time.fixedDeltaTime);
+
+        // if ((int)body.position.y % 1 == 0) {
+        //     SpawnTrail(body.position.x, body.position.y);
+        // }
 
         // if (movement.sqrMagnitude != 0)
         // {
