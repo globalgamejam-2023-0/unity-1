@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour
         // clue.go = clueGo;
         // clue.clueData = clueData;
         
-        SpriteRenderer spriteRenderer = clueGo.AddComponent<SpriteRenderer>();
+        var spriteRenderer = clueGo.AddComponent<SpriteRenderer>();
         spriteRenderer.enabled = true;
         spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Round");
         //spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/IMG_2564");
@@ -97,6 +97,9 @@ public class PlayerController : MonoBehaviour
         //spriteRenderer.sprite = Resources.Load<Sprite>(randomClueTexture());
 
         spriteRenderer.sortingOrder = 1;
+
+        var boxCollider = clueGo.AddComponent<BoxCollider2D>();
+        // boxCollider.size = new Vector2(4, 4);
 
         // clues.Add(clueGo);
     }
@@ -114,9 +117,17 @@ public class PlayerController : MonoBehaviour
     private IEnumerator LimitedUpdate() {
         while(true) {
             var prevPos = body.position;
-            body.MovePosition(body.position + movement * walkSpeed * Time.fixedDeltaTime);
+
+            var tempPos = body.position + movement * walkSpeed * Time.fixedDeltaTime;
+            tempPos.x = (int)tempPos.x;
+            tempPos.y = (int)tempPos.y;
+            body.MovePosition(tempPos);
+            Debug.Log(tempPos);
+
             yield return new WaitForSeconds(0.050f);
+
             SpawnTrail(prevPos.x, prevPos.y);
+
             yield return new WaitForSeconds(0.600f);
         }
     }
