@@ -140,9 +140,9 @@ public class ClueSystem : MonoBehaviour
         Debug.Log(list.Last());
 
         //int i = 0;
-        for (var i = 0; i < clueDatas.Count(); i++)
+        for (var i = 0; i < 64; i++)
         {
-            var cd = clueDatas[i];
+            var cd = clueDatas[0];
             //(int, int) pos = cluePositions.First();
             //cluePositions.RemoveAt(0);
             // GameObject go = spawnPoints2.First();
@@ -156,7 +156,7 @@ public class ClueSystem : MonoBehaviour
     void SpawnClue(float x, float y, ClueData clueData)
     {
         GameObject clueGo = new GameObject();
-        clueGo.name = clueName();
+        clueGo.name = "item-water";
         clueGo.transform.position = Vector3.zero + new Vector3(x, y, 1);
         clueGo.transform.localScale = new Vector3(0.5f, 0.5f, 1);
         
@@ -169,8 +169,13 @@ public class ClueSystem : MonoBehaviour
         //spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/IMG_2564");
         spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/" + clueData.graphic.Item1);
         //spriteRenderer.sprite = Resources.Load<Sprite>(randomClueTexture());
+        spriteRenderer.sortingOrder = 1;
 
-        // spriteRenderer.sortingOrder = 3;
+        var boxCollider = clueGo.AddComponent<BoxCollider2D>();
+        boxCollider.size = new Vector2(4, 4);
+
+        // var rigidBody = clueGo.AddComponent<Rigidbody2D>();
+        // rigidBody.isKinematic = true;
 
         clues.Add(clueGo);
     }

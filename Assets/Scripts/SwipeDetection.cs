@@ -91,8 +91,6 @@ public class SwipeDetection : MonoBehaviour
     }
 
     private void SwipeDirection(Vector2 direction) {
-        Debug.Log(animator);
-        
         if (Vector2.Dot(Vector2.up, direction) > directionThreshold) {
             Debug.Log("Swipe up");
 

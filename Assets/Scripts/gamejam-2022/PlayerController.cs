@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
         // GameObject.Destroy(myLine, duration);
 
         GameObject clueGo = new GameObject();
-        // clueGo.name = clueName();
+        clueGo.name = "Trail";
         clueGo.transform.position = Vector3.zero + new Vector3(x, y, 1);
         clueGo.transform.localScale = new Vector3(0.5f, 0.5f, 1);
         
@@ -95,13 +95,22 @@ public class PlayerController : MonoBehaviour
         //spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/IMG_2564");
         // spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/" + clueData.graphic.Item1);
         //spriteRenderer.sprite = Resources.Load<Sprite>(randomClueTexture());
-
         spriteRenderer.sortingOrder = 1;
 
         var boxCollider = clueGo.AddComponent<BoxCollider2D>();
-        // boxCollider.size = new Vector2(4, 4);
+        boxCollider.size = new Vector2(4, 4);
+
+        // var rigidBody = clueGo.AddComponent<Rigidbody2D>();
+        // rigidBody.isKinematic = true;
 
         // clues.Add(clueGo);
+    }
+
+    void OnCollisionEnter2D(Collision2D other) {
+        Debug.Log(other.gameObject.name);
+        if (other.gameObject.name.Contains("item-")) {
+            Destroy(other.gameObject);
+        }
     }
     
     // Start is called before the first frame update
@@ -122,7 +131,6 @@ public class PlayerController : MonoBehaviour
             tempPos.x = (int)tempPos.x;
             tempPos.y = (int)tempPos.y;
             body.MovePosition(tempPos);
-            Debug.Log(tempPos);
 
             yield return new WaitForSeconds(0.050f);
 
