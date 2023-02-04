@@ -27,17 +27,17 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    // void Update()
-    // {
-    //     movement.x = Input.GetAxisRaw("Horizontal");
-    //     movement.y = Input.GetAxisRaw("Vertical");
+    void Update()
+    {
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
 
-    //     Debug.Log(movement);
-
-    //     animator.SetFloat("Horizontal", movement.x);
-    //     animator.SetFloat("Vertical", movement.y);
-    //     animator.SetFloat("Speed", movement.sqrMagnitude);
-    // }
+        if (movement.sqrMagnitude != 0) {
+            animator.SetFloat("Horizontal", movement.x);
+            animator.SetFloat("Vertical", movement.y);
+            animator.SetFloat("Speed", movement.sqrMagnitude);
+        }
+    }
 
     void FixedUpdate()
     {
