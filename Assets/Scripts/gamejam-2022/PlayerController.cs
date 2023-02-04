@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
     public AudioClip audioWalk;
 
     public Vector2 movement;
+    private int speed;
+    private bool spawnOneTrail;
 
     private Vector3 position;
     private float width;
@@ -67,10 +69,15 @@ public class PlayerController : MonoBehaviour
         }
 
         currentDirection = direction;
+        speed = 1;
     }
     
     void SpawnTrail(float x, float y)
     {
+        if (!spawnOneTrail && speed == 0) {
+            return;
+        }
+
         // GameObject myLine = new GameObject();
         // myLine.transform.position = start;
         // myLine.AddComponent<LineRenderer>();
@@ -153,20 +160,27 @@ public class PlayerController : MonoBehaviour
         // clues.Add(clueGo);
 
         lastDirection = currentDirection;
+
+        spawnOneTrail = false;
     }
 
-    void OnCollisionEnter2D(Collision2D other) {
+    void OnTriggerEnter2D(Collider2D other) {
         Debug.Log(other.gameObject.name);
         if (other.gameObject.name.Contains("item-")) {
             Destroy(other.gameObject);
         }
+        else {
+            speed = 0;
+            spawnOneTrail = true;
+        }
     }
-    
+
     // Start is called before the first frame update
     void Start()
     {
         body = gameObject.GetComponent<Rigidbody2D>();
         boxCollider = gameObject.GetComponent<BoxCollider2D>();
+        speed = 1;
 
         Move(Direction.DOWN);
 
@@ -178,7 +192,7 @@ public class PlayerController : MonoBehaviour
             var prevPos = body.position;
 
             // var tempPos = body.position + movement * walkSpeed * Time.fixedDeltaTime;
-            var tempPos = body.position + movement * boxCollider.size;
+            var tempPos = body.position + (movement * boxCollider.size * speed);
             tempPos.x = (int)tempPos.x;
             tempPos.y = (int)tempPos.y;
             body.MovePosition(tempPos);
@@ -187,10 +201,7 @@ public class PlayerController : MonoBehaviour
             animator.SetFloat("Vertical", movement.y);
             animator.SetFloat("Speed", movement.sqrMagnitude);
 
-            Debug.Log(tempPos);
-            Debug.Log(boxCollider.size);
-
-            yield return new WaitForSeconds(0.013f);
+            yield return new WaitForSeconds(0.020f);
 
             SpawnTrail(prevPos.x, prevPos.y);
 
