@@ -50,10 +50,6 @@ public class PlayerController : MonoBehaviour
 
         movement.x = x;
         movement.y = y;
-
-        animator.SetFloat("Horizontal", movement.x);
-        animator.SetFloat("Vertical", movement.y);
-        animator.SetFloat("Speed", movement.sqrMagnitude);
     }
 
     public void Move(Direction direction) {
@@ -187,14 +183,18 @@ public class PlayerController : MonoBehaviour
             tempPos.y = (int)tempPos.y;
             body.MovePosition(tempPos);
 
+            animator.SetFloat("Horizontal", movement.x);
+            animator.SetFloat("Vertical", movement.y);
+            animator.SetFloat("Speed", movement.sqrMagnitude);
+
             Debug.Log(tempPos);
             Debug.Log(boxCollider.size);
 
-            yield return new WaitForSeconds(0.050f);
+            yield return new WaitForSeconds(0.013f);
 
             SpawnTrail(prevPos.x, prevPos.y);
 
-            yield return new WaitForSeconds(0.600f);
+            yield return new WaitForSeconds(0.500f);
         }
     }
 
