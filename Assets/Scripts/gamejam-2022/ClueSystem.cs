@@ -7,7 +7,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
-
+using System.Security.Cryptography;
 
 public class ClueSystem : MonoBehaviour
 {
@@ -15,12 +15,9 @@ public class ClueSystem : MonoBehaviour
 
     private bool exitDialogShown { get; set; } = false;
     
-    public TextMeshProUGUI skipToNextStep;
-    public TextMeshProUGUI cluesFoundText;
     //public GameObject camera;
     public List<GameObject> clues;
-    private SpriteRenderer spriteRenderer;
-    public DialogueManager dialogueManager;
+    // private SpriteRenderer spriteRenderer;
     private GameObject currentClue = null;
     private List<string> colours =
         new() { "blue", "green", "red", "yellow", "black", "purple", "orange" };
@@ -84,44 +81,76 @@ public class ClueSystem : MonoBehaviour
     public static List<ClueData> cluesPlaced    = new();
     public List<ClueData> clueDatasFound = new();
 
-    // Phone?
+    // void Shuffle<T>(IList<T> list)
+    // {
+    //     RNGCryptoServiceProvider provider = new RNGCryptoServiceProvider();
+    //     int n = list.Count;
+    //     while (n > 1)
+    //     {
+    //         byte[] box = new byte[1];
+    //         do provider.GetBytes(box);
+    //         while (!(box[0] < n * (Byte.MaxValue / n)));
+    //         int k = (box[0] % n);
+    //         n--;
+    //         T value = list[k];
+    //         list[k] = list[n];
+    //         list[n] = value;
+    //     }
+    // }
     
     void Start()
     {
-        
-        skipToNextStep.gameObject.SetActive(false);
         Statics.answeredQuestions = 0;
         clueDatas = new();
         cluesPlaced = new();
         clueDatasFound = new();
             
         clueDatas = createStory();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        // spriteRenderer = GetComponent<SpriteRenderer>();
         clues = new();
-        GameObject[] spawnPoints =
-            GameObject.FindGameObjectsWithTag("clue_spawn_point");
+        // GameObject[] spawnPoints =
+        //     GameObject.FindGameObjectsWithTag("clue_spawn_point");
 
-        List<GameObject> spawnPoints2 = new();
+        // List<GameObject> spawnPoints2 = new();
 
         //foreach (var sp in spawnPoints)
         //{
         //    spawnPoints2.Add(sp);
         //}
 
-        spawnPoints2 = spawnPoints.OrderBy(sp => Guid.NewGuid()).ToList();
-        
+        // spawnPoints2 = spawnPoints.OrderBy(sp => Guid.NewGuid()).ToList();
+
+        var list = new List<Vector2>();
+        for (var x = 0; x < 90 * 2; x++) {
+            for (var y = 13; y < 170; y++) {
+                list.Add(new Vector2(x - 90, -y));
+            }
+        }
+        // var shuffledList = list.OrderBy(a => Guid.NewGuid()).ToList();
+
+        for (int i = 0; i < list.Count; i++) {
+            var temp = list[i];
+            int randomIndex = Random.Range(i, list.Count);
+            list[i] = list[randomIndex];
+            list[randomIndex] = temp;
+        }
+
+        // Debug.Log(list.ElementAt(0));
+        Debug.Log(list.First());
+        Debug.Log(list.Last());
+
         //int i = 0;
-        foreach (ClueData cd in clueDatas)
+        for (var i = 0; i < clueDatas.Count(); i++)
         {
+            var cd = clueDatas[i];
             //(int, int) pos = cluePositions.First();
             //cluePositions.RemoveAt(0);
-            GameObject go = spawnPoints2.First();
-            spawnPoints2.RemoveAt(0);
-            SpawnClue(go.transform.position.x, go.transform.position.y, cd);
+            // GameObject go = spawnPoints2.First();
+            // spawnPoints2.RemoveAt(0);
+            SpawnClue(list[i].x, list[i].y, cd);
             cluesPlaced.Add(cd);
         }
         //SpawnClue(300, 170);
-        
     }
 
     void SpawnClue(float x, float y, ClueData clueData)
@@ -148,7 +177,7 @@ public class ClueSystem : MonoBehaviour
     
     private void FixedUpdate()
     {
-        spriteRenderer.enabled = false;
+        // spriteRenderer.enabled = false;
         foreach (GameObject clue in clues)
         {
             if ((clue) && ((clue.transform.position - player.transform.position).magnitude < 5.0f))
@@ -156,7 +185,7 @@ public class ClueSystem : MonoBehaviour
                 // Do something here
                 //Debug.Log("Player is close to: ???");
                 //TakeClue = alse;
-                spriteRenderer.enabled = true;
+                // spriteRenderer.enabled = true;
                 currentClue = clue;
                 return;
             }
@@ -164,45 +193,45 @@ public class ClueSystem : MonoBehaviour
 
     }
 
-    private void Update()
-    {
-        if (exitDialogShown && Input.GetKeyDown(KeyCode.Space))
-        {
-            SceneManager.LoadScene("questions");
-        }
+    // private void Update()
+    // {
+    //     if (exitDialogShown && Input.GetKeyDown(KeyCode.Space))
+    //     {
+    //         SceneManager.LoadScene("questions");
+    //     }
         
-        cluesFoundText.SetText($"Clues: {clueDatasFound.Count()}/{cluesPlaced.Count()}");
+    //     cluesFoundText.SetText($"Clues: {clueDatasFound.Count()}/{cluesPlaced.Count()}");
 
-        if (!dialogueManager.animator.GetBool("IsOpen") && ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E)) && spriteRenderer.enabled))
-        {
-            Debug.Log("X");
-            Clue clue = currentClue.GetComponent<Clue>();
-            if (clue != null)
-            {
-                dialogueManager.TriggerDialogue(clue);
-                clueDatasFound.Add(clue.clueData);
-                Destroy(currentClue);
-            }
-        }
-        else if (dialogueManager.animator.GetBool("IsOpen") && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape)))
-        {
-            Debug.Log("Removing dialog");
-            dialogueManager.EndDialogue();
-            if (clueDatasFound.Count() == cluesPlaced.Count())
-            {
-                exitDialogShown = true;
-                skipToNextStep.gameObject.SetActive(true);
-            }
-        }
+    //     if (!dialogueManager.animator.GetBool("IsOpen") && ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E)) && spriteRenderer.enabled))
+    //     {
+    //         Debug.Log("X");
+    //         Clue clue = currentClue.GetComponent<Clue>();
+    //         if (clue != null)
+    //         {
+    //             dialogueManager.TriggerDialogue(clue);
+    //             clueDatasFound.Add(clue.clueData);
+    //             Destroy(currentClue);
+    //         }
+    //     }
+    //     else if (dialogueManager.animator.GetBool("IsOpen") && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape)))
+    //     {
+    //         Debug.Log("Removing dialog");
+    //         dialogueManager.EndDialogue();
+    //         if (clueDatasFound.Count() == cluesPlaced.Count())
+    //         {
+    //             exitDialogShown = true;
+    //             skipToNextStep.gameObject.SetActive(true);
+    //         }
+    //     }
         
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            Debug.Log("Questioning scene");
-            //Debug.Log($"Size of cluesPlaced: {cluesPlaced.Count()}");
-            //DataSaver.saveData(cluesPlaced, "cluesPlaced");
-            SceneManager.LoadScene("questions");
-        }
-    }
+    //     if (Input.GetKeyDown(KeyCode.O))
+    //     {
+    //         Debug.Log("Questioning scene");
+    //         //Debug.Log($"Size of cluesPlaced: {cluesPlaced.Count()}");
+    //         //DataSaver.saveData(cluesPlaced, "cluesPlaced");
+    //         SceneManager.LoadScene("questions");
+    //     }
+    // }
 
     private List<string> randomizedColours()
     {

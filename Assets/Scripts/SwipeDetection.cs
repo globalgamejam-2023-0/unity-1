@@ -26,10 +26,12 @@ public class SwipeDetection : MonoBehaviour
     private Coroutine coroutine;
 
     private Animator animator;
+    private PlayerController playerController;
 
     void Start()
     {
         animator = gameObject.GetComponent<Animator>();
+        playerController = gameObject.GetComponent<PlayerController>();
     }
 
     private void Awake() {
@@ -91,30 +93,22 @@ public class SwipeDetection : MonoBehaviour
         if (Vector2.Dot(Vector2.up, direction) > directionThreshold) {
             Debug.Log("Swipe up");
 
-            animator.SetFloat("Horizontal", 0);
-            animator.SetFloat("Vertical", 1);
-            animator.SetFloat("Speed", 1);
+            playerController.Move(Direction.UP);
         }
         else if (Vector2.Dot(Vector2.down, direction) > directionThreshold) {
             Debug.Log("Swipe down");
 
-            animator.SetFloat("Horizontal", 0);
-            animator.SetFloat("Vertical", -1);
-            animator.SetFloat("Speed", 1);
+            playerController.Move(Direction.DOWN);
         }
         else if (Vector2.Dot(Vector2.left, direction) > directionThreshold) {
             Debug.Log("Swipe left");
 
-            animator.SetFloat("Horizontal", -1);
-            animator.SetFloat("Vertical", 0);
-            animator.SetFloat("Speed", 1);
+            playerController.Move(Direction.LEFT);
         }
         else if (Vector2.Dot(Vector2.right, direction) > directionThreshold) {
             Debug.Log("Swipe right");
 
-            animator.SetFloat("Horizontal", 1);
-            animator.SetFloat("Vertical", 0);
-            animator.SetFloat("Speed", 1);
+            playerController.Move(Direction.RIGHT);
         }
     }
 }
