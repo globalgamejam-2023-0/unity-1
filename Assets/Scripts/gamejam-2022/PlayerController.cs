@@ -142,59 +142,6 @@ public class PlayerController : MonoBehaviour
                 spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/2");
             }
         }
-
-        // if (currentDirection == Direction.UP) {
-        //     if (lastDirection != currentDirection) {
-        //         if (lastDirection == Direction.LEFT) {
-        //             spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/7");
-        //         }
-        //         else if (lastDirection == Direction.RIGHT) {
-        //             spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/5");
-        //         }
-        //     }
-        //     else {
-        //         spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/8");
-        //     }
-        // }
-        // else if (currentDirection == Direction.DOWN) {
-        //     if (lastDirection != currentDirection) {
-        //         if (lastDirection == Direction.LEFT) {
-        //             spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/1");
-        //         }
-        //         else if (lastDirection == Direction.RIGHT) {
-        //             spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/3");
-        //         }
-        //     }
-        //     else {
-        //         spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/4");
-        //     }
-        // }
-        // else if (currentDirection == Direction.LEFT) {
-        //     if (lastDirection != currentDirection) {
-        //         if (lastDirection == Direction.UP) {
-        //             spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/3");
-        //         }
-        //         else if (lastDirection == Direction.DOWN) {
-        //             spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/5");
-        //         }
-        //     }
-        //     else {
-        //        spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/6");
-        //     }
-        // }
-        // else if (currentDirection == Direction.RIGHT) {
-        //     if (lastDirection != currentDirection) {
-        //         if (lastDirection == Direction.UP) {
-        //             spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/1");
-        //         }
-        //         else if (lastDirection == Direction.DOWN) {
-        //             spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/7");
-        //         }
-        //     }
-        //     else {
-        //         spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/2");
-        //     }
-        // }
         
         //spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/IMG_2564");
         // spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/" + clueData.graphic.Item1);

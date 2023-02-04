@@ -72,9 +72,9 @@ public class ClueSystem : MonoBehaviour
     
     private List<string> clueTextures = new()
     {
-        "Sprites/IMG_2562",
-        "Sprites/IMG_2564",
-        "Sprites/IMG_2566"
+        "Sprites/ggj-2023/Mock-up drop",
+        "Sprites/ggj-2023/Mock-up pests",
+        "Sprites/ggj-2023/Mock-up rock",
     };
 
     public List<ClueData> clueDatas      = new();
@@ -104,7 +104,7 @@ public class ClueSystem : MonoBehaviour
         clueDatas = new();
         cluesPlaced = new();
         clueDatasFound = new();
-            
+
         clueDatas = createStory();
         // spriteRenderer = GetComponent<SpriteRenderer>();
         clues = new();
@@ -167,7 +167,16 @@ public class ClueSystem : MonoBehaviour
         SpriteRenderer spriteRenderer = clueGo.AddComponent<SpriteRenderer>();
         spriteRenderer.enabled = true;
         //spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/IMG_2564");
-        spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Mock-up drop");
+
+        for (int i = 0; i < clueTextures.Count; i++) {
+            var temp = clueTextures[i];
+            int randomIndex = Random.Range(i, clueTextures.Count);
+            clueTextures[i] = clueTextures[randomIndex];
+            clueTextures[randomIndex] = temp;
+        }
+
+        spriteRenderer.sprite = Resources.Load<Sprite>(clueTextures[0]);
+
         // spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/" + clueData.graphic.Item1);
         //spriteRenderer.sprite = Resources.Load<Sprite>(randomClueTexture());
         spriteRenderer.sortingOrder = 1;
@@ -253,8 +262,6 @@ public class ClueSystem : MonoBehaviour
     {
         return list.OrderBy(item => Guid.NewGuid()).ToList();
     }
-    
-    
     
     private List<ClueData> createStory()
     {
