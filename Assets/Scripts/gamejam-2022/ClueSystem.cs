@@ -121,9 +121,9 @@ public class ClueSystem : MonoBehaviour
         // spawnPoints2 = spawnPoints.OrderBy(sp => Guid.NewGuid()).ToList();
 
         var list = new List<Vector2>();
-        for (var x = 0; x < 90 * 2; x++) {
-            for (var y = 13; y < 170; y++) {
-                list.Add(new Vector2(x - 90, -y));
+        for (var x = 0; x < 24 * 2; x++) {
+            for (var y = 4; y < 46; y++) {
+                list.Add(new Vector2(x - 24, -y));
             }
         }
         // var shuffledList = list.OrderBy(a => Guid.NewGuid()).ToList();
@@ -158,7 +158,7 @@ public class ClueSystem : MonoBehaviour
         GameObject clueGo = new GameObject();
         clueGo.name = "item-water";
         clueGo.transform.position = Vector3.zero + new Vector3(x, y, 1);
-        clueGo.transform.localScale = new Vector3(0.5f, 0.5f, 1);
+        clueGo.transform.localScale = new Vector3(0.2777778f, 0.2777778f, 1f);
         
         Clue clue = clueGo.AddComponent<Clue>();
         clue.go = clueGo;
@@ -167,12 +167,13 @@ public class ClueSystem : MonoBehaviour
         SpriteRenderer spriteRenderer = clueGo.AddComponent<SpriteRenderer>();
         spriteRenderer.enabled = true;
         //spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/IMG_2564");
-        spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/" + clueData.graphic.Item1);
+        spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Mock-up drop");
+        // spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/" + clueData.graphic.Item1);
         //spriteRenderer.sprite = Resources.Load<Sprite>(randomClueTexture());
         spriteRenderer.sortingOrder = 1;
 
         var boxCollider = clueGo.AddComponent<BoxCollider2D>();
-        boxCollider.size = new Vector2(4, 4);
+        // boxCollider.size = new Vector2(4, 4);
 
         // var rigidBody = clueGo.AddComponent<Rigidbody2D>();
         // rigidBody.isKinematic = true;

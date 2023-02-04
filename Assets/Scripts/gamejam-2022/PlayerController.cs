@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private int walkSpeed = 100;
     private Rigidbody2D body;
+    private BoxCollider2D boxCollider;
     //private float inputH;
     //private float inputV;
     public Animator animator;
@@ -28,6 +29,9 @@ public class PlayerController : MonoBehaviour
     private float height;
 
     private Coroutine coroutine;
+
+    private Direction currentDirection;
+    private Direction lastDirection;
 
     public void MoveVec(float x, float y) {
         if (movement.y == -1 && y == 1) {
@@ -65,6 +69,8 @@ public class PlayerController : MonoBehaviour
         else if (direction == Direction.RIGHT) {
             MoveVec(1, 0);
         }
+
+        currentDirection = direction;
     }
     
     void SpawnTrail(float x, float y)
@@ -82,8 +88,8 @@ public class PlayerController : MonoBehaviour
 
         GameObject clueGo = new GameObject();
         clueGo.name = "Trail";
-        clueGo.transform.position = Vector3.zero + new Vector3(x, y, 1);
-        clueGo.transform.localScale = new Vector3(0.5f, 0.5f, 1);
+        clueGo.transform.position = Vector3.zero + new Vector3(x, y, 1f);
+        clueGo.transform.localScale = new Vector3(0.2777778f, 0.2777778f, 1f);
         
         // var clue = clueGo.AddComponent<GameObject>();
         // clue.go = clueGo;
@@ -91,19 +97,119 @@ public class PlayerController : MonoBehaviour
         
         var spriteRenderer = clueGo.AddComponent<SpriteRenderer>();
         spriteRenderer.enabled = true;
-        spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Round");
+
+        if (currentDirection == Direction.UP) {
+            if (lastDirection == Direction.LEFT) {
+                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/7");
+            }
+            else if (lastDirection == Direction.RIGHT) {
+                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/5");
+            }
+            else {
+                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/8");
+            }
+        }
+        else if (currentDirection == Direction.DOWN) {
+            if (lastDirection == Direction.LEFT) {
+                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/1");
+            }
+            else if (lastDirection == Direction.RIGHT) {
+                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/3");
+            }
+            else {
+                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/4");
+            }
+        }
+        else if (currentDirection == Direction.LEFT) {
+            if (lastDirection == Direction.UP) {
+                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/3");
+            }
+            else if (lastDirection == Direction.DOWN) {
+                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/5");
+            }
+            else {
+               spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/6");
+            }
+        }
+        else if (currentDirection == Direction.RIGHT) {
+            if (lastDirection == Direction.UP) {
+                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/1");
+            }
+            else if (lastDirection == Direction.DOWN) {
+                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/7");
+            }
+            else {
+                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/2");
+            }
+        }
+
+        // if (currentDirection == Direction.UP) {
+        //     if (lastDirection != currentDirection) {
+        //         if (lastDirection == Direction.LEFT) {
+        //             spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/7");
+        //         }
+        //         else if (lastDirection == Direction.RIGHT) {
+        //             spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/5");
+        //         }
+        //     }
+        //     else {
+        //         spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/8");
+        //     }
+        // }
+        // else if (currentDirection == Direction.DOWN) {
+        //     if (lastDirection != currentDirection) {
+        //         if (lastDirection == Direction.LEFT) {
+        //             spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/1");
+        //         }
+        //         else if (lastDirection == Direction.RIGHT) {
+        //             spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/3");
+        //         }
+        //     }
+        //     else {
+        //         spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/4");
+        //     }
+        // }
+        // else if (currentDirection == Direction.LEFT) {
+        //     if (lastDirection != currentDirection) {
+        //         if (lastDirection == Direction.UP) {
+        //             spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/3");
+        //         }
+        //         else if (lastDirection == Direction.DOWN) {
+        //             spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/5");
+        //         }
+        //     }
+        //     else {
+        //        spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/6");
+        //     }
+        // }
+        // else if (currentDirection == Direction.RIGHT) {
+        //     if (lastDirection != currentDirection) {
+        //         if (lastDirection == Direction.UP) {
+        //             spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/1");
+        //         }
+        //         else if (lastDirection == Direction.DOWN) {
+        //             spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/7");
+        //         }
+        //     }
+        //     else {
+        //         spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/2");
+        //     }
+        // }
+        
         //spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/IMG_2564");
         // spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/" + clueData.graphic.Item1);
         //spriteRenderer.sprite = Resources.Load<Sprite>(randomClueTexture());
         spriteRenderer.sortingOrder = 1;
 
         var boxCollider = clueGo.AddComponent<BoxCollider2D>();
-        boxCollider.size = new Vector2(4, 4);
+        // boxCollider.size = new Vector2(4, 4);
 
         // var rigidBody = clueGo.AddComponent<Rigidbody2D>();
         // rigidBody.isKinematic = true;
 
         // clues.Add(clueGo);
+
+        lastDirection = currentDirection;
     }
 
     void OnCollisionEnter2D(Collision2D other) {
@@ -117,6 +223,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         body = gameObject.GetComponent<Rigidbody2D>();
+        boxCollider = gameObject.GetComponent<BoxCollider2D>();
 
         Move(Direction.DOWN);
 
@@ -127,10 +234,14 @@ public class PlayerController : MonoBehaviour
         while(true) {
             var prevPos = body.position;
 
-            var tempPos = body.position + movement * walkSpeed * Time.fixedDeltaTime;
+            // var tempPos = body.position + movement * walkSpeed * Time.fixedDeltaTime;
+            var tempPos = body.position + movement * boxCollider.size;
             tempPos.x = (int)tempPos.x;
             tempPos.y = (int)tempPos.y;
             body.MovePosition(tempPos);
+
+            Debug.Log(tempPos);
+            Debug.Log(boxCollider.size);
 
             yield return new WaitForSeconds(0.050f);
 
