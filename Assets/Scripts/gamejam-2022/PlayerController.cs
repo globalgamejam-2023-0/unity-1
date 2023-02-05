@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum Direction {
     UP,
@@ -40,6 +41,8 @@ public class PlayerController : MonoBehaviour
     private Direction lastDirection;
 
     private List<Direction> moveBuf;
+
+    private bool gameOver;
 
     public void QueueMove(Direction direction) {
         moveBuf.Add(direction);
@@ -83,6 +86,25 @@ public class PlayerController : MonoBehaviour
         }
         else if (direction == Direction.RIGHT) {
             MoveVec(1, 0);
+        }
+
+        if (speed == 0) {
+            if (lastDirection == direction) {
+                return;
+            }
+
+            if (lastDirection == Direction.UP && direction == Direction.DOWN) {
+                return;
+            }
+            if (lastDirection == Direction.DOWN && direction == Direction.UP) {
+                return;
+            }
+            if (lastDirection == Direction.LEFT && direction == Direction.RIGHT) {
+                return;
+            }
+            if (lastDirection == Direction.RIGHT && direction == Direction.LEFT) {
+                return;
+            }
         }
 
         currentDirection = direction;
@@ -208,6 +230,13 @@ public class PlayerController : MonoBehaviour
                 audio.clip = collideAudio;
                 audio.Play();
             }
+
+            if (name.Contains("Trail")) {
+                Debug.Log("Game over");
+                gameOver = true;
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+            }
+
             speed = 0;
             spawnOneTrail = true;
         }
@@ -220,6 +249,7 @@ public class PlayerController : MonoBehaviour
         boxCollider = gameObject.GetComponent<BoxCollider2D>();
         moveBuf = new();
         speed = 1;
+        gameOver = false;
 
         Move(Direction.DOWN);
 
@@ -228,6 +258,10 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator LimitedUpdate() {
         while(true) {
+            if (gameOver) {
+                break;
+            }
+
             var prevPos = body.position;
 
             ExecMove();
