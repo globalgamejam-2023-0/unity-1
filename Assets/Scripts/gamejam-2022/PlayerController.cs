@@ -72,10 +72,10 @@ public class PlayerController : MonoBehaviour
         speed = 1;
     }
     
-    void SpawnTrail(float x, float y)
+    GameObject SpawnTrail(float x, float y)
     {
         if (!spawnOneTrail && speed == 0) {
-            return;
+            return null;
         }
 
         // GameObject myLine = new GameObject();
@@ -162,6 +162,8 @@ public class PlayerController : MonoBehaviour
         lastDirection = currentDirection;
 
         spawnOneTrail = false;
+
+        return clueGo;
     }
 
     void OnTriggerEnter2D(Collider2D other) {
@@ -195,17 +197,43 @@ public class PlayerController : MonoBehaviour
             var tempPos = body.position + (movement * boxCollider.size * speed);
             tempPos.x = (int)tempPos.x;
             tempPos.y = (int)tempPos.y;
-            body.MovePosition(tempPos);
 
             animator.SetFloat("Horizontal", movement.x);
             animator.SetFloat("Vertical", movement.y);
             animator.SetFloat("Speed", movement.sqrMagnitude);
 
-            yield return new WaitForSeconds(0.020f);
+            // body.MovePosition(tempPos);
 
-            SpawnTrail(prevPos.x, prevPos.y);
+            float t = 0;
+            Vector2 start = body.position;
+            while (t <= 1)
+            {
+                t += Time.fixedDeltaTime / 0.100f;
+                body.MovePosition(Vector2.Lerp (start, tempPos, t));
 
-            yield return new WaitForSeconds(0.500f);
+                yield return null;
+            }
+
+            // yield return new WaitForSeconds(0.020f);
+
+            var trail = SpawnTrail(prevPos.x, prevPos.y);
+            if (trail != null) {
+                var trailRenderer = trail.GetComponent<Renderer>();
+
+                Color objectColor = trailRenderer.material.color;
+                objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, 0);
+                trailRenderer.material.color = objectColor;
+
+                while (trailRenderer.material.color.a < 1) {
+                    float fadeAmount = objectColor.a + (Time.fixedDeltaTime / 0.100f);
+
+                    objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
+                    trailRenderer.material.color = objectColor;
+                    yield return null;
+                }
+            }
+
+            yield return new WaitForSeconds(0.250f);
         }
     }
 
