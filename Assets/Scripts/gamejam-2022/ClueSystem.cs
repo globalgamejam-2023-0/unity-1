@@ -121,9 +121,9 @@ public class ClueSystem : MonoBehaviour
         // spawnPoints2 = spawnPoints.OrderBy(sp => Guid.NewGuid()).ToList();
 
         var list = new List<Vector2>();
-        for (var x = 0; x < 24 * 2; x++) {
+        for (var x = 0; x < 26 * 2; x++) {
             for (var y = 4; y < 46; y++) {
-                list.Add(new Vector2(x - 24, -y));
+                list.Add(new Vector2(x - 26, -y));
             }
         }
         // var shuffledList = list.OrderBy(a => Guid.NewGuid()).ToList();
@@ -139,21 +139,46 @@ public class ClueSystem : MonoBehaviour
         Debug.Log(list.First());
         Debug.Log(list.Last());
 
-        //int i = 0;
-        for (var i = 0; i < 64; i++)
+        var numWater = 32;
+        var numPest = 64;
+        var numRock = 338;
+
+        for (var i = 0; i < numWater; i++)
         {
             var cd = clueDatas[0];
+            
             //(int, int) pos = cluePositions.First();
             //cluePositions.RemoveAt(0);
             // GameObject go = spawnPoints2.First();
             // spawnPoints2.RemoveAt(0);
-            SpawnClue(list[i].x, list[i].y, cd);
+            
+            SpawnClue(list[i].x, list[i].y, cd, "Sprites/ggj-2023/Mock-up drop");
+
             cluesPlaced.Add(cd);
         }
+
+        for (var i = 0; i < numPest; i++)
+        {
+            var cd = clueDatas[0];
+
+            SpawnClue(list[i + numWater].x, list[i + numWater].y, cd, "Sprites/ggj-2023/Mock-up pests");
+
+            cluesPlaced.Add(cd);
+        }
+
+        for (var i = 0; i < numRock; i++)
+        {
+            var cd = clueDatas[0];
+            
+            SpawnClue(list[i + numWater + numPest].x, list[i + numWater + numPest].y, cd, "Sprites/ggj-2023/Mock-up rock");
+
+            cluesPlaced.Add(cd);
+        }
+
         //SpawnClue(300, 170);
     }
 
-    void SpawnClue(float x, float y, ClueData clueData)
+    void SpawnClue(float x, float y, ClueData clueData, string itemPath)
     {
         GameObject clueGo = new GameObject();
         clueGo.transform.position = Vector3.zero + new Vector3(x, y, 1);
@@ -167,14 +192,14 @@ public class ClueSystem : MonoBehaviour
         spriteRenderer.enabled = true;
         //spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/IMG_2564");
 
-        for (int i = 0; i < clueTextures.Count; i++) {
-            var temp = clueTextures[i];
-            int randomIndex = Random.Range(i, clueTextures.Count);
-            clueTextures[i] = clueTextures[randomIndex];
-            clueTextures[randomIndex] = temp;
-        }
+        // for (int i = 0; i < clueTextures.Count; i++) {
+        //     var temp = clueTextures[i];
+        //     int randomIndex = Random.Range(i, clueTextures.Count);
+        //     clueTextures[i] = clueTextures[randomIndex];
+        //     clueTextures[randomIndex] = temp;
+        // }
 
-        var itemPath = clueTextures[0];
+        // var itemPath = clueTextures[0];
         
         clueGo.name = $"item-{itemPath}";
         if (itemPath.Contains("Sprites/ggj-2023/Mock-up rock")) {
