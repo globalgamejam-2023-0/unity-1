@@ -2246,6 +2246,9 @@ MonoBehaviour:
   animator: {fileID: 1802494704}
   audio: {fileID: 1802494705}
   audioWalk: {fileID: 8300000, guid: ee700c3f9166ee30fbe1e664ce0d0581, type: 3}
+  waterAudio: {fileID: 8300000, guid: aabfb4319a501c1f3ac636337c7c6b6c, type: 3}
+  pestAudio: {fileID: 8300000, guid: 65800b33ef46f4995af3f9b3545aa00a, type: 3}
+  collideAudio: {fileID: 8300000, guid: 49f4836c0712d6f7cb918ada69dc4ccc, type: 3}
   movement: {x: 0, y: 0}
 --- !u!212 &1802494710
 SpriteRenderer:
@@ -2770,6 +2773,9 @@ MonoBehaviour:
   animator: {fileID: 1865511195}
   audio: {fileID: 1865511196}
   audioWalk: {fileID: 8300000, guid: ee700c3f9166ee30fbe1e664ce0d0581, type: 3}
+  waterAudio: {fileID: 0}
+  pestAudio: {fileID: 0}
+  collideAudio: {fileID: 0}
   movement: {x: 0, y: 0}
 --- !u!212 &1865511201
 SpriteRenderer:

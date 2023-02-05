@@ -22,6 +22,10 @@ public class PlayerController : MonoBehaviour
     public AudioSource audio;
     public AudioClip audioWalk;
 
+    public AudioClip waterAudio;
+    public AudioClip pestAudio;
+    public AudioClip collideAudio;
+
     public Vector2 movement;
     private int speed;
     private bool spawnOneTrail;
@@ -167,11 +171,30 @@ public class PlayerController : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D other) {
-        Debug.Log(other.gameObject.name);
-        if (other.gameObject.name.Contains("item-")) {
+        var name = other.gameObject.name;
+
+        Debug.Log($"Colliding with {name}");
+        if (name.Contains("item-")) {
+            if (name.Contains("Sprites/ggj-2023/Mock-up drop")) {
+                if (!audio.isPlaying) {
+                    audio.clip = waterAudio;
+                    audio.Play();
+                }
+            }
+            else if (name.Contains("Sprites/ggj-2023/Mock-up pests")) {
+                if (!audio.isPlaying) {
+                    audio.clip = pestAudio;
+                    audio.Play();
+                }
+            }
+
             Destroy(other.gameObject);
         }
         else {
+            if (!audio.isPlaying) {
+                audio.clip = collideAudio;
+                audio.Play();
+            }
             speed = 0;
             spawnOneTrail = true;
         }

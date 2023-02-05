@@ -77,13 +77,6 @@ public class ClueSystem : MonoBehaviour
         "Sprites/ggj-2023/Mock-up rock",
     };
 
-    private List<string> clueSfx = new()
-    {
-        "Sprites/ggj-2023/sfx/drekkur-vatn2",
-        "Sprites/ggj-2023/sfx/auwauw",
-        "Sprites/ggj-2023/sfx/rakar-stein-ella-vegg",
-    };
-
     public List<ClueData> clueDatas      = new();
     public static List<ClueData> cluesPlaced    = new();
     public List<ClueData> clueDatasFound = new();
@@ -163,7 +156,6 @@ public class ClueSystem : MonoBehaviour
     void SpawnClue(float x, float y, ClueData clueData)
     {
         GameObject clueGo = new GameObject();
-        clueGo.name = "item-water";
         clueGo.transform.position = Vector3.zero + new Vector3(x, y, 1);
         clueGo.transform.localScale = new Vector3(0.2777778f, 0.2777778f, 1f);
         
@@ -182,7 +174,13 @@ public class ClueSystem : MonoBehaviour
             clueTextures[randomIndex] = temp;
         }
 
-        spriteRenderer.sprite = Resources.Load<Sprite>(clueTextures[0]);
+        var itemPath = clueTextures[0];
+        
+        clueGo.name = $"item-{itemPath}";
+        if (itemPath.Contains("Sprites/ggj-2023/Mock-up rock")) {
+            clueGo.name = $"{itemPath}";
+        }
+        spriteRenderer.sprite = Resources.Load<Sprite>(itemPath);
 
         // spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/" + clueData.graphic.Item1);
         //spriteRenderer.sprite = Resources.Load<Sprite>(randomClueTexture());
