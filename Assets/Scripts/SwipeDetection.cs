@@ -28,6 +28,8 @@ public class SwipeDetection : MonoBehaviour
     private Animator animator;
     private PlayerController playerController;
 
+    public GameOverScreen gameOverScreen;
+
     void Start()
     {
         animator = gameObject.GetComponent<Animator>();

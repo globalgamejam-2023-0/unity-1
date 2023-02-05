@@ -21,11 +21,20 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
 
     public AudioSource audio;
+    public AudioSource audio1;
+    public AudioSource ambientAudio0;
+    public AudioSource ambientAudio1;
+    public AudioSource windAudio;
+    public AudioSource lavaAudio;
+    public AudioSource gameOverAudio;
+
     public AudioClip audioWalk;
 
     public AudioClip waterAudio;
     public AudioClip pestAudio;
     public AudioClip collideAudio;
+    public AudioClip growAudio;
+    public AudioClip shrinkAudio;
 
     public Vector2 movement;
     private int speed;
@@ -42,7 +51,55 @@ public class PlayerController : MonoBehaviour
 
     private List<Direction> moveBuf;
 
+    private int treeGrow;
+    private int treeShrink;
+
     private bool gameOver;
+    public bool getGameOver() {
+        return gameOver;
+    }
+
+    private int length;
+    public int getLength() {
+        return length;
+    }
+    private void addLength(int length) {
+        this.length += length;
+        
+        if (length > 0) {
+            treeGrow += Math.Abs(length);
+            treeShrink -= Math.Abs(length);
+        } else {
+            treeShrink += Math.Abs(length);
+            treeGrow -= Math.Abs(length);
+        }
+
+        if (treeGrow > 19) {
+            if (!audio1.isPlaying) {
+                audio1.clip = growAudio;
+                audio1.Play();
+            }
+            treeGrow = 0;
+        }
+        if (treeShrink > 19) {
+            if (!audio1.isPlaying) {
+                audio1.clip = shrinkAudio;
+                audio1.Play();
+            }
+            treeShrink = 0;
+        }
+
+        if (treeGrow < 0) {
+            treeGrow = 0;
+        }
+        if (treeShrink < 0) {
+            treeShrink = 0;
+        }
+
+        // if (this.length < 0) {
+        //     this.length = 0;
+        // }
+    }
 
     public void QueueMove(Direction direction) {
         moveBuf.Add(direction);
@@ -202,6 +259,8 @@ public class PlayerController : MonoBehaviour
 
         spawnOneTrail = false;
 
+        addLength(1);
+
         return clueGo;
     }
 
@@ -215,12 +274,16 @@ public class PlayerController : MonoBehaviour
                     audio.clip = waterAudio;
                     audio.Play();
                 }
+                
+                addLength(10);
             }
             else if (name.Contains("Sprites/ggj-2023/Mock-up pests")) {
                 if (!audio.isPlaying) {
                     audio.clip = pestAudio;
                     audio.Play();
                 }
+
+                addLength(-5);
             }
 
             Destroy(other.gameObject);
@@ -234,7 +297,15 @@ public class PlayerController : MonoBehaviour
             if (name.Contains("Trail")) {
                 Debug.Log("Game over");
                 gameOver = true;
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+
+                ambientAudio0.volume = 0f;
+                ambientAudio1.volume = 0f;
+                windAudio.volume = 0f;
+                lavaAudio.volume = 0f;
+
+                gameOverAudio.volume = 0.5f;
+                
+                // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
             }
 
             speed = 0;
@@ -250,6 +321,7 @@ public class PlayerController : MonoBehaviour
         moveBuf = new();
         speed = 1;
         gameOver = false;
+        length = 0;
 
         Move(Direction.DOWN);
 
@@ -286,6 +358,8 @@ public class PlayerController : MonoBehaviour
 
                 yield return null;
             }
+
+            lavaAudio.volume = Math.Abs(body.position.y) / 100;
 
             // yield return new WaitForSeconds(0.020f);
 

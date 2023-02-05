@@ -10,8 +10,7 @@ public class CountDownTimer : MonoBehaviour {
 
     public GameOverScreen GameOverScreen;
     public GameObject Player;
-    float currentTime = 0f;
-    public float startingTime = 10f;
+    public PlayerController playerController;
 
     [SerializeField] TextMeshProUGUI countdown;
 
@@ -23,33 +22,35 @@ public class CountDownTimer : MonoBehaviour {
 
     private void Start()
     {
-        currentTime = startingTime;
+
     }
 
     private void Update()
     {
-        currentTime -= 1 * Time.unscaledDeltaTime;
-        //Debug.Log(currentTime);
-        //countdown.text = currentTime.ToString();
-        countdown.text = currentTime.ToString("0");
+        // currentTime -= 1 * Time.unscaledDeltaTime;
+        // //Debug.Log(currentTime);
+        // //countdown.text = currentTime.ToString();
+        countdown.text = playerController.getLength().ToString();
 
-        if (Player)
-        {
-            currentTime = 0;
-            return;
+        if (playerController.getGameOver()) {
+            GameOver();
         }
 
-
-        if (currentTime <= 0)
-        {
-            currentTime = 0;
-            Player = GameObject.Find("Player");
-            Player.SetActive(false);
-
-            //GameOver();
-            SceneManager.LoadScene("questions");
+        // if (Player)
+        // {
+        //     currentTime = 0;
+        //     return;
+        // }
 
 
-        }
+        // if (currentTime <= 0)
+        // {
+        //     currentTime = 0;
+        //     // Player = GameObject.Find("Player");
+        //     // Player.SetActive(false);
+
+        //     //GameOver();
+        //     // SceneManager.LoadScene("questions");
+        // }
     }
 }

@@ -31,4 +31,10 @@ public class MainMenu : MonoBehaviour
         Debug.Log("Quit Game has been pressed");
         Application.Quit();
     }
+
+    public void Update() {
+        if (Input.anyKey) {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+    }
 }
