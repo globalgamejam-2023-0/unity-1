@@ -199,46 +199,46 @@ public class PlayerController : MonoBehaviour
 
         if (currentDirection == Direction.UP) {
             if (lastDirection == Direction.LEFT) {
-                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/7");
+                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root-s/7s");
             }
             else if (lastDirection == Direction.RIGHT) {
-                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/5");
+                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root-s/5s");
             }
             else {
-                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/8");
+                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root-s/8s");
             }
         }
         else if (currentDirection == Direction.DOWN) {
             if (lastDirection == Direction.LEFT) {
-                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/1");
+                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root-s/1s");
             }
             else if (lastDirection == Direction.RIGHT) {
-                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/3");
+                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root-s/3s");
             }
             else {
-                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/4");
+                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root-s/4s");
             }
         }
         else if (currentDirection == Direction.LEFT) {
             if (lastDirection == Direction.UP) {
-                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/3");
+                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root-s/3s");
             }
             else if (lastDirection == Direction.DOWN) {
-                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/5");
+                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root-s/5s");
             }
             else {
-               spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/6");
+               spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root-s/6s");
             }
         }
         else if (currentDirection == Direction.RIGHT) {
             if (lastDirection == Direction.UP) {
-                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/1");
+                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root-s/1s");
             }
             else if (lastDirection == Direction.DOWN) {
-                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/7");
+                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root-s/7s");
             }
             else {
-                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root/2");
+                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root-s/2s");
             }
         }
         
