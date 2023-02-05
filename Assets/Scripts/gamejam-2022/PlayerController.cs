@@ -61,6 +61,20 @@ public class PlayerController : MonoBehaviour
         return gameOver;
     }
 
+    public void setGameOver() {
+        Debug.Log("Game over");
+        gameOver = true;
+
+        ambientAudio0.volume = 0f;
+        ambientAudio1.volume = 0f;
+        windAudio.volume = 0f;
+        lavaAudio.volume = 0f;
+
+        gameOverAudio.Play();
+
+        // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+    }
+
     private int length;
     public int getLength() {
         return length;
@@ -294,6 +308,10 @@ public class PlayerController : MonoBehaviour
             }
 
             Destroy(other.gameObject);
+
+            if(getLength() < 0) {
+                setGameOver();
+            }
         }
         else {
             if (!audio.isPlaying) {
@@ -302,17 +320,7 @@ public class PlayerController : MonoBehaviour
             }
 
             if (name.Contains("Trail") || name.Contains("collider-bottom")) {
-                Debug.Log("Game over");
-                gameOver = true;
-
-                ambientAudio0.volume = 0f;
-                ambientAudio1.volume = 0f;
-                windAudio.volume = 0f;
-                lavaAudio.volume = 0f;
-
-                gameOverAudio.Play();
-                
-                // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+                setGameOver();
             }
 
             speed = 0;
