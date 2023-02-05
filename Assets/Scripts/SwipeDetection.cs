@@ -41,11 +41,21 @@ public class SwipeDetection : MonoBehaviour
     private void OnEnable() {
         inputManager.OnStartTouch += SwipeStart;
         inputManager.OnEndTouch += SwipeEnd;
+
+        inputManager.OnUP += UP;
+        inputManager.OnDOWN += DOWN;
+        inputManager.OnLEFT += LEFT;
+        inputManager.OnRIGHT += RIGHT;
     }
 
     private void OnDisable() {
         inputManager.OnStartTouch -= SwipeStart;
         inputManager.OnEndTouch -= SwipeEnd;
+
+        inputManager.OnUP -= UP;
+        inputManager.OnDOWN -= DOWN;
+        inputManager.OnLEFT -= LEFT;
+        inputManager.OnRIGHT -= RIGHT;
     }
 
     private void SwipeStart(Vector2 position, float time) {
@@ -77,6 +87,34 @@ public class SwipeDetection : MonoBehaviour
         endTime = time;
 
         DetectSwipe();
+    }
+
+    private void UP(float axis) {
+        Debug.Log("Keyboard UP");
+        if (axis == 1) {
+            playerController.Move(Direction.UP);
+        }
+    }
+
+    private void DOWN(float axis) {
+        Debug.Log("Keyboard DOWN");
+        if (axis == 1) {
+            playerController.Move(Direction.DOWN);
+        }
+    }
+
+    private void LEFT(float axis) {
+        Debug.Log("Keyboard LEFT");
+        if (axis == 1) {
+            playerController.Move(Direction.LEFT);
+        }
+    }
+
+    private void RIGHT(float axis) {
+        Debug.Log("Keyboard RIGHT");
+        if (axis == 1) {
+            playerController.Move(Direction.RIGHT);
+        }
     }
 
     private void DetectSwipe() {
