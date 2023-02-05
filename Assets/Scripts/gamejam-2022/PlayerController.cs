@@ -54,6 +54,8 @@ public class PlayerController : MonoBehaviour
     private int treeGrow;
     private int treeShrink;
 
+    private bool rootBase;
+
     private bool gameOver;
     public bool getGameOver() {
         return gameOver;
@@ -241,6 +243,10 @@ public class PlayerController : MonoBehaviour
                 spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root-s/2s");
             }
         }
+
+        // if (rootBase) {
+        //     spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/ggj-2023/Root-s/bases");
+        // }
         
         //spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/IMG_2564");
         // spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/" + clueData.graphic.Item1);
@@ -258,6 +264,7 @@ public class PlayerController : MonoBehaviour
         lastDirection = currentDirection;
 
         spawnOneTrail = false;
+        rootBase = false;
 
         addLength(1);
 
@@ -294,7 +301,7 @@ public class PlayerController : MonoBehaviour
                 audio.Play();
             }
 
-            if (name.Contains("Trail")) {
+            if (name.Contains("Trail") || name.Contains("collider-bottom")) {
                 Debug.Log("Game over");
                 gameOver = true;
 
@@ -303,7 +310,7 @@ public class PlayerController : MonoBehaviour
                 windAudio.volume = 0f;
                 lavaAudio.volume = 0f;
 
-                gameOverAudio.volume = 0.5f;
+                gameOverAudio.Play();
                 
                 // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
             }
@@ -322,6 +329,7 @@ public class PlayerController : MonoBehaviour
         speed = 1;
         gameOver = false;
         length = 0;
+        rootBase = true;
 
         Move(Direction.DOWN);
 
