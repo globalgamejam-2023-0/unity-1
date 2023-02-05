@@ -77,6 +77,13 @@ public class ClueSystem : MonoBehaviour
         "Sprites/ggj-2023/Mock-up rock",
     };
 
+    private List<string> clueSfx = new()
+    {
+        "Sprites/ggj-2023/sfx/drekkur-vatn2",
+        "Sprites/ggj-2023/sfx/auwauw",
+        "Sprites/ggj-2023/sfx/rakar-stein-ella-vegg",
+    };
+
     public List<ClueData> clueDatas      = new();
     public static List<ClueData> cluesPlaced    = new();
     public List<ClueData> clueDatasFound = new();

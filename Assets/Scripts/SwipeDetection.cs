@@ -90,29 +90,29 @@ public class SwipeDetection : MonoBehaviour
     }
 
     private void UP(float axis) {
-        Debug.Log("Keyboard UP");
         if (axis == 1) {
-            playerController.Move(Direction.UP);
+            Debug.Log("Keyboard UP");
+            playerController.Move(Direction.UP); 
         }
     }
 
     private void DOWN(float axis) {
-        Debug.Log("Keyboard DOWN");
         if (axis == 1) {
+            Debug.Log("Keyboard DOWN");
             playerController.Move(Direction.DOWN);
         }
     }
 
     private void LEFT(float axis) {
-        Debug.Log("Keyboard LEFT");
         if (axis == 1) {
+            Debug.Log("Keyboard LEFT");
             playerController.Move(Direction.LEFT);
         }
     }
 
     private void RIGHT(float axis) {
-        Debug.Log("Keyboard RIGHT");
         if (axis == 1) {
+            Debug.Log("Keyboard RIGHT");
             playerController.Move(Direction.RIGHT);
         }
     }
