@@ -39,6 +39,19 @@ public class PlayerController : MonoBehaviour
     private Direction currentDirection;
     private Direction lastDirection;
 
+    private List<Direction> moveBuf;
+
+    public void QueueMove(Direction direction) {
+        moveBuf.Add(direction);
+    }
+
+    public void ExecMove() {
+        if (moveBuf.Count > 0) {
+            Move(moveBuf[0]);
+            moveBuf.RemoveAt(0);
+        }
+    }
+
     public void MoveVec(float x, float y) {
         if (movement.y == -1 && y == 1) {
             y = -1;
@@ -205,6 +218,7 @@ public class PlayerController : MonoBehaviour
     {
         body = gameObject.GetComponent<Rigidbody2D>();
         boxCollider = gameObject.GetComponent<BoxCollider2D>();
+        moveBuf = new();
         speed = 1;
 
         Move(Direction.DOWN);
@@ -215,6 +229,8 @@ public class PlayerController : MonoBehaviour
     private IEnumerator LimitedUpdate() {
         while(true) {
             var prevPos = body.position;
+
+            ExecMove();
 
             // var tempPos = body.position + movement * walkSpeed * Time.fixedDeltaTime;
             var tempPos = body.position + (movement * boxCollider.size * speed);

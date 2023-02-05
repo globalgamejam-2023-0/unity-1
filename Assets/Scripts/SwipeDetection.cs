@@ -92,28 +92,28 @@ public class SwipeDetection : MonoBehaviour
     private void UP(float axis) {
         if (axis == 1) {
             Debug.Log("Keyboard UP");
-            playerController.Move(Direction.UP); 
+            playerController.QueueMove(Direction.UP); 
         }
     }
 
     private void DOWN(float axis) {
         if (axis == 1) {
             Debug.Log("Keyboard DOWN");
-            playerController.Move(Direction.DOWN);
+            playerController.QueueMove(Direction.DOWN);
         }
     }
 
     private void LEFT(float axis) {
         if (axis == 1) {
             Debug.Log("Keyboard LEFT");
-            playerController.Move(Direction.LEFT);
+            playerController.QueueMove(Direction.LEFT);
         }
     }
 
     private void RIGHT(float axis) {
         if (axis == 1) {
             Debug.Log("Keyboard RIGHT");
-            playerController.Move(Direction.RIGHT);
+            playerController.QueueMove(Direction.RIGHT);
         }
     }
 
@@ -132,22 +132,22 @@ public class SwipeDetection : MonoBehaviour
         if (Vector2.Dot(Vector2.up, direction) > directionThreshold) {
             Debug.Log("Swipe up");
 
-            playerController.Move(Direction.UP);
+            playerController.QueueMove(Direction.UP);
         }
         else if (Vector2.Dot(Vector2.down, direction) > directionThreshold) {
             Debug.Log("Swipe down");
 
-            playerController.Move(Direction.DOWN);
+            playerController.QueueMove(Direction.DOWN);
         }
         else if (Vector2.Dot(Vector2.left, direction) > directionThreshold) {
             Debug.Log("Swipe left");
 
-            playerController.Move(Direction.LEFT);
+            playerController.QueueMove(Direction.LEFT);
         }
         else if (Vector2.Dot(Vector2.right, direction) > directionThreshold) {
             Debug.Log("Swipe right");
 
-            playerController.Move(Direction.RIGHT);
+            playerController.QueueMove(Direction.RIGHT);
         }
     }
 }
